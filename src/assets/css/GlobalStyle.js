@@ -56,5 +56,8 @@ a{
 }
 body{
     font-family: 'Lexend Deca';
+    background-color: #111;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
 }
 `;
