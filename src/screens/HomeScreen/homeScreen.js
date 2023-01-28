@@ -10,6 +10,7 @@ import ScrollMovies from "../../components/ScroolMovies/scrollMovies";
 import BannerFront from "../../components/BannerFront/bannerFront";
 import { ContainerMovies } from "./styles";
 import Header from "../../components/Header/header";
+import Footer from "../../components/Footer/footer";
 
 export default function HomeScreen() {
   const [data, setData] = useState([]);
@@ -57,6 +58,7 @@ export default function HomeScreen() {
           <ScrollMovies key={index} tittle={value.tittle} list={value.list} />
         ))}
       </ContainerMovies>
+      <Footer />
     </>
   );
 }
