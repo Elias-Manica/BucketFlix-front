@@ -9,6 +9,7 @@ import {
 import ScrollMovies from "../../components/ScroolMovies/scrollMovies";
 import BannerFront from "../../components/BannerFront/bannerFront";
 import { ContainerMovies } from "./styles";
+import Header from "../../components/Header/header";
 
 export default function HomeScreen() {
   const [data, setData] = useState([]);
@@ -49,6 +50,7 @@ export default function HomeScreen() {
 
   return (
     <>
+      <Header />
       {loadingBanner ? null : <BannerFront data={banner} />}
       <ContainerMovies>
         {data.map((value, index) => (
