@@ -1,27 +1,60 @@
 import { useState, useEffect } from "react";
 
-import { getAllData } from "../../services/movieService";
+import {
+  getAllData,
+  getPopularMovies,
+  getMovieSpecific,
+} from "../../services/movieService";
 
 import ScrollMovies from "../../components/ScroolMovies/scrollMovies";
+import BannerFront from "../../components/BannerFront/bannerFront";
+import { ContainerMovies } from "./styles";
 
 export default function HomeScreen() {
   const [data, setData] = useState([]);
+  const [banner, setBanner] = useState([]);
+  const [loadingBanner, setLoadingBanner] = useState(false);
+
+  async function getBanner() {
+    setLoadingBanner(true);
+    try {
+      const response = await getPopularMovies();
+      let randomindex = Math.floor(
+        Math.random() * (response[0].list.results.length - 1)
+      );
+      let movie = response[0].list.results[randomindex];
+
+      const details = await getMovieSpecific(movie.id);
+
+      setBanner(details.data);
+    } catch (error) {}
+    setLoadingBanner(false);
+  }
 
   async function getData() {
-    const response = await getAllData();
+    try {
+      const response = await getAllData();
 
-    setData(response);
+      setData(response);
+    } catch (error) {
+      //TODO - FAZER NOTIFICAÇÃO ERRO
+      console.log(error);
+    }
   }
 
   useEffect(() => {
+    getBanner();
     getData();
   }, []);
 
   return (
     <>
-      {data.map((value, index) => (
-        <ScrollMovies key={index} tittle={value.tittle} list={value.list} />
-      ))}
+      {loadingBanner ? null : <BannerFront data={banner} />}
+      <ContainerMovies>
+        {data.map((value, index) => (
+          <ScrollMovies key={index} tittle={value.tittle} list={value.list} />
+        ))}
+      </ContainerMovies>
     </>
   );
 }

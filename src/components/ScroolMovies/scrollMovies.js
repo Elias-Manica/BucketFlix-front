@@ -8,7 +8,6 @@ import {
 } from "./styles";
 
 export default function ScrollMovies({ tittle, list }) {
-  console.log(list.results);
   return (
     <>
       <Container>
