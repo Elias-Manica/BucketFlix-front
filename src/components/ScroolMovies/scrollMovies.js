@@ -45,16 +45,10 @@ export default function ScrollMovies({ tittle, list }) {
           <AiOutlineArrowRight />
         </ViewRight>
         <ContainerRow>
-          {" "}
-          {/*list--area*/}
           <Row pass={margin} size={list.results.length * 150}>
-            {" "}
-            {/*list*/}
             {list.results.length > 0
               ? list.results.map((item, index) => (
                   <ContainerMovie key={index}>
-                    {" "}
-                    {/*list--item*/}
                     <Image
                       src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
                       alt={item.original_title}

@@ -11,6 +11,8 @@ export const Container = styled.div`
 
 export const Tittle = styled.h1`
   margin-left: 30px;
+  font-size: 20px;
+  font-weight: bold;
 `;
 
 export const ContainerRow = styled.div`

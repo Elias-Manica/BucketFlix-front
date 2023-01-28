@@ -14,8 +14,6 @@ import {
 } from "./styles";
 
 export default function BannerFront({ data }) {
-  console.log(data, " data");
-
   let description = data.overview;
   if (description) {
     if (description.length > 200) {

@@ -15,6 +15,8 @@ import Footer from "../../components/Footer/footer";
 import ScrollMovies from "../../components/ScroolMovies/scrollMovies";
 import BannerFront from "../../components/BannerFront/bannerFront";
 
+import Swal from "sweetalert2";
+
 export default function HomeScreen() {
   const [data, setData] = useState([]);
   const [banner, setBanner] = useState([]);
@@ -32,7 +34,13 @@ export default function HomeScreen() {
       const details = await getMovieSpecific(movie.id);
 
       setBanner(details.data);
-    } catch (error) {}
+    } catch (error) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Erro ao carregar banner!",
+      });
+    }
     setLoading(false);
   }
 
@@ -42,8 +50,11 @@ export default function HomeScreen() {
 
       setData(response);
     } catch (error) {
-      //TODO - FAZER NOTIFICAÇÃO ERRO
-      console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Erro ao buscar filmes!",
+      });
     }
   }
 
