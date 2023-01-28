@@ -1,24 +1,27 @@
 import { useState, useEffect } from "react";
 
+import loadImage from "../../assets/images/loading.gif";
+
 import {
   getAllData,
   getPopularMovies,
   getMovieSpecific,
 } from "../../services/movieService";
 
-import ScrollMovies from "../../components/ScroolMovies/scrollMovies";
-import BannerFront from "../../components/BannerFront/bannerFront";
-import { ContainerMovies } from "./styles";
+import { ContainerLOading, ContainerMovies, Image } from "./styles";
+
 import Header from "../../components/Header/header";
 import Footer from "../../components/Footer/footer";
+import ScrollMovies from "../../components/ScroolMovies/scrollMovies";
+import BannerFront from "../../components/BannerFront/bannerFront";
 
 export default function HomeScreen() {
   const [data, setData] = useState([]);
   const [banner, setBanner] = useState([]);
-  const [loadingBanner, setLoadingBanner] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   async function getBanner() {
-    setLoadingBanner(true);
+    setLoading(true);
     try {
       const response = await getPopularMovies();
       let randomindex = Math.floor(
@@ -30,7 +33,7 @@ export default function HomeScreen() {
 
       setBanner(details.data);
     } catch (error) {}
-    setLoadingBanner(false);
+    setLoading(false);
   }
 
   async function getData() {
@@ -52,13 +55,25 @@ export default function HomeScreen() {
   return (
     <>
       <Header />
-      {loadingBanner ? null : <BannerFront data={banner} />}
-      <ContainerMovies>
-        {data.map((value, index) => (
-          <ScrollMovies key={index} tittle={value.tittle} list={value.list} />
-        ))}
-      </ContainerMovies>
-      <Footer />
+      {loading ? (
+        <ContainerLOading>
+          <Image src={loadImage} />
+        </ContainerLOading>
+      ) : (
+        <>
+          <BannerFront data={banner} />
+          <ContainerMovies>
+            {data.map((value, index) => (
+              <ScrollMovies
+                key={index}
+                tittle={value.tittle}
+                list={value.list}
+              />
+            ))}
+          </ContainerMovies>
+          <Footer />
+        </>
+      )}
     </>
   );
 }
