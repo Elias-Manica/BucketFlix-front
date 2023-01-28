@@ -12,6 +12,9 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 700px) {
+    justify-content: center;
+  }
 `;
 
 export const Logo = styled.h1`
@@ -31,6 +34,9 @@ export const TextPages = styled.h2`
 export const ContainerSelect = styled.div`
   display: flex;
   margin-left: 20px;
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 export const ContainerUser = styled.div`
@@ -38,6 +44,10 @@ export const ContainerUser = styled.div`
   margin-left: 20px;
   height: 35px;
   align-items: center;
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 export const ImageUser = styled.img`

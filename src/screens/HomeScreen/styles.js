@@ -2,6 +2,9 @@ import styled from "styled-components";
 
 export const ContainerMovies = styled.div`
   margin-top: -110px;
+  @media (max-width: 614px) {
+    margin-top: 70px;
+  }
 `;
 
 export const Image = styled.img`

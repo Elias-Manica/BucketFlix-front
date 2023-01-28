@@ -8,6 +8,10 @@ export const Container = styled.div`
     props.img
       ? `url(https://image.tmdb.org/t/p/original${props.img})`
       : console.log("não tem")};
+
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 export const Tittle = styled.h1`
