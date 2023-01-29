@@ -77,3 +77,8 @@ export const TextComment = styled.p`
   font-size: 16px;
   color: #fff;
 `;
+
+export const DontLoginText = styled.h4`
+  font-size: 25px;
+  font-weight: bold;
+`;

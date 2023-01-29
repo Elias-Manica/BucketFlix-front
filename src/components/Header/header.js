@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -21,13 +21,21 @@ import {
   AiOutlineCaretUp,
 } from "react-icons/ai";
 
-import IdAuth from "../../context/useridContext";
-
 export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
+  async function logOut() {
+    try {
+      localStorage.removeItem("bucketflix");
+      setShowModal(false);
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -36,7 +44,22 @@ export default function Header() {
           <Logo onClick={() => navigate("/")}>BUCKETFLIX</Logo>
           <ContainerSelect>
             <TextPages onClick={() => navigate("/")}>Página inicial</TextPages>
-            <TextPages>Minha lista</TextPages>
+            <TextPages
+              onClick={() => {
+                if (urlProfile) {
+                  navigate(`/user/${urlProfile.userid}`);
+                  return;
+                }
+                navigate("/login");
+              }}
+            >
+              Minha lista
+            </TextPages>
+            {!urlProfile && (
+              <TextPages onClick={() => navigate("/login")}>
+                Fazer login
+              </TextPages>
+            )}
           </ContainerSelect>
         </ContainerFirst>
         <ContainerUser>
@@ -56,7 +79,9 @@ export default function Header() {
             </>
           )}
 
-          <Menu showMenu={showModal}>Logout</Menu>
+          <Menu showMenu={showModal} onClick={logOut}>
+            Logout
+          </Menu>
         </ContainerUser>
       </Container>
     </>

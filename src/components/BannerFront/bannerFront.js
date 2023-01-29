@@ -18,6 +18,8 @@ import {
 export default function BannerFront({ data }) {
   const navigate = useNavigate();
 
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
   let description = data.overview;
   if (description) {
     if (description.length > 200) {
@@ -47,10 +49,22 @@ export default function BannerFront({ data }) {
             </ContainerInfos>
             <ViewDescription>{description}</ViewDescription>
             <ContainerButtons>
-              <Button onClick={() => navigate(`/movie/${data.id}`)}>
+              <Button
+                onClick={() => {
+                  navigate(`/movie/${data.id}`);
+                }}
+              >
                 Ver informações +
               </Button>
-              <ButtonComment>Adicionar comentário</ButtonComment>
+              <ButtonComment
+                onClick={() => {
+                  if (!urlProfile) {
+                    navigate("/login");
+                  }
+                }}
+              >
+                Adicionar comentário
+              </ButtonComment>
             </ContainerButtons>
           </ViewStylesHorizontal>
         </ViewStyles>

@@ -6,7 +6,13 @@ import Header from "../../components/Header/header";
 
 import { getMovieSpecific } from "../../services/movieService";
 
-import { Container, ContainerComment, ContainerInfos, View } from "./styles";
+import {
+  Container,
+  ContainerComment,
+  ContainerInfos,
+  DontLoginText,
+  View,
+} from "./styles";
 
 import Swal from "sweetalert2";
 
@@ -18,6 +24,8 @@ export default function MoviePage() {
   const { id } = useParams();
   const [data, setData] = useState({});
   const inputRef = useRef(null);
+
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
   async function getData() {
     try {
@@ -44,7 +52,11 @@ export default function MoviePage() {
         <ShowMovie data={data} inputRef={inputRef} />
         <View>
           <ContainerComment>
-            <Comments inputRef={inputRef} />
+            {!urlProfile ? (
+              <DontLoginText>Faça login para ver os comentários</DontLoginText>
+            ) : (
+              <Comments inputRef={inputRef} />
+            )}
           </ContainerComment>
           <ContainerInfos>
             <InfosContainer data={data} />

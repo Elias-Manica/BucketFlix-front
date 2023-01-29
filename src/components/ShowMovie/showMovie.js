@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import {
   Button,
   ButtonComment,
@@ -14,6 +16,16 @@ import {
 } from "./styles";
 
 export default function ShowMovie({ data, inputRef }) {
+  const navigate = useNavigate();
+
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
+  function addMovie() {
+    if (!urlProfile) {
+      navigate("/login");
+    }
+  }
+
   return (
     <>
       <Container img={data.backdrop_path}>
@@ -36,8 +48,16 @@ export default function ShowMovie({ data, inputRef }) {
             </ContainerInfos>
             <ViewDescription>{data.overview}</ViewDescription>
             <ContainerButtons>
-              <Button>+ Minha lista</Button>
-              <ButtonComment onClick={() => inputRef.current.focus()}>
+              <Button onClick={addMovie}>+ Minha lista</Button>
+              <ButtonComment
+                onClick={() => {
+                  if (!urlProfile) {
+                    navigate("/login");
+                    return;
+                  }
+                  inputRef.current.focus();
+                }}
+              >
                 Adicionar comentário
               </ButtonComment>
             </ContainerButtons>
