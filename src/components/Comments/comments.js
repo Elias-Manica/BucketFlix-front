@@ -16,12 +16,59 @@ import {
 import { IoMdSend, IoIosStarOutline, IoIosStar } from "react-icons/io";
 import CommentStyle from "../Comment/comment";
 import { ThreeDots } from "react-loader-spinner";
+import Swal from "sweetalert2";
+import { postCommentsMovie } from "../../services/apiService";
 
-export default function Comments({ inputRef, data, loading }) {
+export default function Comments({
+  inputRef,
+  data,
+  loading,
+  getComment,
+  movieid,
+}) {
   const [rated, setRated] = useState(0);
+  const [text, setText] = useState("");
+
   const navigate = useNavigate();
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
+  async function postComment() {
+    if (rated === 0) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Escolha a sua nota clicando nas estrelas",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+    try {
+      await postCommentsMovie(urlProfile.token, movieid, rated, text);
+      getComment();
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }
 
   return (
     <>
@@ -149,8 +196,10 @@ export default function Comments({ inputRef, data, loading }) {
         <InputComment
           placeholder="Escreva sua opinião do filme"
           ref={inputRef}
+          value={text}
+          onChange={(e) => setText(e.target.value)}
         />
-        <Icon>
+        <Icon onClick={postComment}>
           <IoMdSend />
         </Icon>
       </ViewComment>

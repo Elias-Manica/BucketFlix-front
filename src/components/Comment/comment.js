@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 import {
   CommentUser,
   ImageUser,
@@ -23,6 +25,7 @@ export default function CommentStyle({
   userid,
   rated,
 }) {
+  const navigate = useNavigate();
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
   return (
     <CommentContainer>
@@ -142,7 +145,7 @@ export default function CommentStyle({
       )}
 
       <CommentUser>
-        <ImageUser src={img} />
+        <ImageUser src={img} onClick={() => navigate(`/user/${userid}`)} />
         <NameUser>{name}</NameUser>
       </CommentUser>
       <CommentInfo>

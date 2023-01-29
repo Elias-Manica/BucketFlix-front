@@ -111,6 +111,26 @@ async function getCommentsMovie(token, movieid) {
   return response;
 }
 
+async function postCommentsMovie(token, movieid, rating, comment) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const body = {
+    movieid: Number(movieid),
+    comment: comment,
+    rating: rating,
+  };
+
+  console.log(body, "body");
+
+  const response = await axios.post(`${BASE_URL}/comments`, body, config);
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -120,4 +140,5 @@ export {
   likeMovie,
   removeMovie,
   getCommentsMovie,
+  postCommentsMovie,
 };

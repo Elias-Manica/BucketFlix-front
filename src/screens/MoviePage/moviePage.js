@@ -88,7 +88,13 @@ export default function MoviePage() {
             {!urlProfile ? (
               <DontLoginText>Faça login para ver os comentários</DontLoginText>
             ) : (
-              <Comments inputRef={inputRef} data={comment} loading={loading} />
+              <Comments
+                inputRef={inputRef}
+                data={comment}
+                loading={loading}
+                getComment={getComment}
+                movieid={id}
+              />
             )}
           </ContainerComment>
           <ContainerInfos>
