@@ -1,5 +1,3 @@
-import { useNavigate } from "react-router-dom";
-
 import {
   Button,
   ButtonComment,
@@ -15,16 +13,7 @@ import {
   ViewTime,
 } from "./styles";
 
-export default function BannerFront({ data }) {
-  const navigate = useNavigate();
-
-  let description = data.overview;
-  if (description) {
-    if (description.length > 200) {
-      description = description.substring(0, 200) + "...";
-    }
-  }
-
+export default function ShowMovie({ data, inputRef }) {
   return (
     <>
       <Container img={data.backdrop_path}>
@@ -45,12 +34,12 @@ export default function BannerFront({ data }) {
               </ViewDate>
               <ViewTime>{data.runtime} minutos</ViewTime>
             </ContainerInfos>
-            <ViewDescription>{description}</ViewDescription>
+            <ViewDescription>{data.overview}</ViewDescription>
             <ContainerButtons>
-              <Button onClick={() => navigate(`/movie/${data.id}`)}>
-                Ver informações +
-              </Button>
-              <ButtonComment>Adicionar comentário</ButtonComment>
+              <Button>+ Minha lista</Button>
+              <ButtonComment onClick={() => inputRef.current.focus()}>
+                Adicionar comentário
+              </ButtonComment>
             </ContainerButtons>
           </ViewStylesHorizontal>
         </ViewStyles>

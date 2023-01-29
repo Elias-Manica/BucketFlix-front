@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import {
   Container,
   ContainerFirst,
@@ -21,14 +23,15 @@ import {
 
 export default function Header() {
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
       <Container>
         <ContainerFirst>
-          <Logo>BUCKETFLIX</Logo>
+          <Logo onClick={() => navigate("/")}>BUCKETFLIX</Logo>
           <ContainerSelect>
-            <TextPages>Página inicial</TextPages>
+            <TextPages onClick={() => navigate("/")}>Página inicial</TextPages>
             <TextPages>Minha lista</TextPages>
           </ContainerSelect>
         </ContainerFirst>

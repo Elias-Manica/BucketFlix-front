@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 import {
@@ -15,6 +17,7 @@ import {
 
 export default function ScrollMovies({ tittle, list }) {
   const [margin, setMargin] = useState(0);
+  const navigate = useNavigate();
 
   function passToTheLeft() {
     let sizeWalk = margin + Math.round(window.innerWidth / 2); //verifico quanto posso andar para o lado (metade da tela do usuário)
@@ -48,7 +51,10 @@ export default function ScrollMovies({ tittle, list }) {
           <Row pass={margin} size={list.results.length * 150}>
             {list.results.length > 0
               ? list.results.map((item, index) => (
-                  <ContainerMovie key={index}>
+                  <ContainerMovie
+                    key={index}
+                    onClick={() => navigate(`/movie/${item.id}`)}
+                  >
                     <Image
                       src={`https://image.tmdb.org/t/p/w300${item.poster_path}`}
                       alt={item.original_title}
