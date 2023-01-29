@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import {
   ViewComment,
   InputComment,
@@ -13,9 +15,14 @@ import {
 
 import { IoMdSend, IoIosStarOutline, IoIosStar } from "react-icons/io";
 import CommentStyle from "../Comment/comment";
+import { ThreeDots } from "react-loader-spinner";
 
-export default function Comments({ inputRef }) {
+export default function Comments({ inputRef, data, loading }) {
   const [rated, setRated] = useState(0);
+  const navigate = useNavigate();
+
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
   return (
     <>
       <ContainerRated>
@@ -135,7 +142,10 @@ export default function Comments({ inputRef }) {
         )}
       </ContainerRated>
       <ViewComment>
-        <ImageUser src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
+        <ImageUser
+          src={urlProfile.img}
+          onClick={() => navigate(`/user/${urlProfile.userid}`)}
+        />
         <InputComment
           placeholder="Escreva sua opinião do filme"
           ref={inputRef}
@@ -145,7 +155,23 @@ export default function Comments({ inputRef }) {
         </Icon>
       </ViewComment>
       <CommentContainer>
-        <CommentStyle />
+        {loading ? (
+          <ThreeDots color="white" height={40} width={40} />
+        ) : data.length > 0 ? (
+          data.map((item, index) => (
+            <CommentStyle
+              key={index}
+              name={item.users.username}
+              img={item.users.pictureUrl}
+              comment={item.comment}
+              date={item.createdat}
+              userid={item.users.id}
+              rate={item.rating}
+            />
+          ))
+        ) : (
+          <p>Ninguém comentou nesse filme</p>
+        )}
       </CommentContainer>
     </>
   );

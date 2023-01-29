@@ -96,6 +96,21 @@ async function removeMovie(token, movieid) {
   return response;
 }
 
+async function getCommentsMovie(token, movieid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(
+    `${BASE_URL}/comments?movieid=${movieid}`,
+    config
+  );
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -104,4 +119,5 @@ export {
   movieIsLiked,
   likeMovie,
   removeMovie,
+  getCommentsMovie,
 };

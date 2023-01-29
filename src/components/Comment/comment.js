@@ -9,16 +9,141 @@ import {
   TextDate,
   DeleteIcon,
   CommentContainer,
+  Star,
+  StarFilled,
 } from "./styles";
 
 import { IoIosStarOutline, IoIosStar, IoIosClose } from "react-icons/io";
 
-export default function CommentStyle() {
+export default function CommentStyle({
+  name,
+  img,
+  comment,
+  date,
+  userid,
+  rated,
+}) {
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
   return (
     <CommentContainer>
+      {rated === 0 && (
+        <>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+        </>
+      )}
+      {rated === 1 && (
+        <>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+        </>
+      )}
+      {rated === 2 && (
+        <>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+        </>
+      )}
+      {rated === 3 && (
+        <>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+        </>
+      )}
+      {rated === 4 && (
+        <>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <Star>
+            <IoIosStarOutline />
+          </Star>
+        </>
+      )}
+      {rated === 5 && (
+        <>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+          <StarFilled>
+            <IoIosStar />
+          </StarFilled>
+        </>
+      )}
+
       <CommentUser>
-        <ImageUser src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-        <NameUser>Elias da silva leignht</NameUser>
+        <ImageUser src={img} />
+        <NameUser>{name}</NameUser>
       </CommentUser>
       <CommentInfo>
         <ViewStar>
@@ -32,14 +157,13 @@ export default function CommentStyle() {
           <IoIosStarOutline />
           <IoIosStarOutline />
         </ViewStar>
-        <TextComment>
-          Muito ruim Muito ruim Muito ruimMuito ruim Muito ruim Muito ruim Muito
-          ruimMuito ruim Muito ruim Muito ruim Muito ruimMuito ruim
-        </TextComment>
-        <TextDate>26/01/2023</TextDate>
-        <DeleteIcon>
-          <IoIosClose />
-        </DeleteIcon>
+        <TextComment>{comment}</TextComment>
+        <TextDate>{new Date(date).toLocaleString("pt-BR")}</TextDate>
+        {Number(urlProfile.userid) === userid && (
+          <DeleteIcon>
+            <IoIosClose />
+          </DeleteIcon>
+        )}
       </CommentInfo>
     </CommentContainer>
   );
