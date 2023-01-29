@@ -70,7 +70,12 @@ export const ViewIcon = styled.div`
 
 export const Input = styled.input`
   width: 230px;
+  height: 40px;
   margin-right: 10px;
+  background: #343334;
+  border-radius: 4px;
+  padding-left: 10px;
+  color: #fff;
 `;
 
 export const Menu = styled.div`

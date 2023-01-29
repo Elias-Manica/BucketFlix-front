@@ -26,7 +26,7 @@ export const Icon = styled.div`
   margin-left: 5px;
 `;
 
-export const Comment = styled.div`
+export const CommentContainer = styled.div`
   display: flex;
   margin-top: 20px;
 `;
@@ -89,4 +89,12 @@ export const StarFilled = styled.div`
   cursor: pointer;
   margin-left: 5px;
   color: #ffe600;
+`;
+
+export const DeleteIcon = styled.div`
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 16px;
 `;
