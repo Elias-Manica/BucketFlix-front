@@ -45,7 +45,16 @@ export default function Header() {
       });
       navigate("/");
     } catch (error) {
-      console.log(error);
+      localStorage.removeItem("bucketflix");
+      setShowModal(false);
+      navigate("/");
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Deslogado!",
+        showConfirmButton: false,
+        timer: 1200,
+      });
     }
   }
 
