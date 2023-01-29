@@ -95,3 +95,27 @@ export const Menu = styled.div`
   top: 70px;
   right: 0;
 `;
+
+export const Modal = styled.div`
+  background-color: #fff;
+  display: ${(props) => (props.modal ? "flex" : "none")};
+  color: #fff;
+  font-size: 17px;
+  font-weight: bold;
+  width: 50%;
+  padding: 20px 20px;
+  border-radius: 2px 2px;
+  cursor: pointer;
+  position: absolute;
+  top: ${(props) => props.distance}px;
+  right: ${(props) => props.distanceLateral}px;
+  z-index: 3;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const ButtonSignIn = styled.div`
+  width: 70%;
+  height: 40px;
+  background-color: red;
+`;

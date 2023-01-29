@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -21,9 +21,13 @@ import {
   AiOutlineCaretUp,
 } from "react-icons/ai";
 
+import IdAuth from "../../context/useridContext";
+
 export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
   return (
     <>
@@ -40,10 +44,18 @@ export default function Header() {
             <AiOutlineSearch />
           </ViewIcon>
           <Input placeholder="Pesquise por filmes ou amigos..." />
-          <ImageUser src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-          <ViewIcon onClick={() => setShowModal(!showModal)}>
-            {showModal ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
-          </ViewIcon>
+          {urlProfile && (
+            <>
+              <ImageUser
+                src={urlProfile.img}
+                onClick={() => navigate(`/user/${urlProfile.userid}`)}
+              />
+              <ViewIcon onClick={() => setShowModal(!showModal)}>
+                {showModal ? <AiOutlineCaretUp /> : <AiOutlineCaretDown />}
+              </ViewIcon>
+            </>
+          )}
+
           <Menu showMenu={showModal}>Logout</Menu>
         </ContainerUser>
       </Container>
