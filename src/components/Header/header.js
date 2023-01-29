@@ -21,16 +21,28 @@ import {
   AiOutlineCaretUp,
 } from "react-icons/ai";
 
+import { logout } from "../../services/apiService";
+
+import Swal from "sweetalert2";
+
 export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
-  async function logOut() {
+  async function logOutFunction() {
     try {
+      await logout(urlProfile.token);
       localStorage.removeItem("bucketflix");
       setShowModal(false);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Deslogado!",
+        showConfirmButton: false,
+        timer: 1200,
+      });
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -79,7 +91,7 @@ export default function Header() {
             </>
           )}
 
-          <Menu showMenu={showModal} onClick={logOut}>
+          <Menu showMenu={showModal} onClick={logOutFunction}>
             Logout
           </Menu>
         </ContainerUser>
