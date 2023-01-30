@@ -76,7 +76,7 @@ export default function MoviePage() {
   useEffect(() => {
     getData();
     getComment();
-  }, []);
+  }, [id]);
 
   return (
     <>

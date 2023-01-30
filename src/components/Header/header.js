@@ -8,25 +8,28 @@ import {
   ContainerSelect,
   ContainerUser,
   ImageUser,
-  Input,
   Logo,
   Menu,
   TextPages,
   ViewIcon,
+  ViewIconDisable,
 } from "./styles";
 
-import {
-  AiOutlineCaretDown,
-  AiOutlineSearch,
-  AiOutlineCaretUp,
-} from "react-icons/ai";
+import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
+
+import { BiCameraMovie, BiUserCircle } from "react-icons/bi";
 
 import { logout } from "../../services/apiService";
 
 import Swal from "sweetalert2";
+import SearchUser from "../SearchUser/searchUser";
 
 export default function Header() {
   const [showModal, setShowModal] = useState(false);
+  const [selectUser, setSelectUser] = useState(false);
+  const [name, setName] = useState("");
+  const [nameUser, setNameUser] = useState("");
+
   const navigate = useNavigate();
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
@@ -84,10 +87,45 @@ export default function Header() {
           </ContainerSelect>
         </ContainerFirst>
         <ContainerUser>
-          <ViewIcon>
-            <AiOutlineSearch />
-          </ViewIcon>
-          <Input placeholder="Pesquise por filmes ou amigos..." />
+          {selectUser ? (
+            <>
+              <ViewIconDisable
+                onClick={() => {
+                  setSelectUser(false);
+                  setName("");
+                  setNameUser("");
+                }}
+              >
+                <BiCameraMovie />
+              </ViewIconDisable>
+              <ViewIcon>
+                <BiUserCircle />
+              </ViewIcon>
+            </>
+          ) : (
+            <>
+              <ViewIcon>
+                <BiCameraMovie />
+              </ViewIcon>
+              <ViewIconDisable
+                onClick={() => {
+                  setSelectUser(true);
+                  setName("");
+                  setNameUser("");
+                }}
+              >
+                <BiUserCircle />
+              </ViewIconDisable>
+            </>
+          )}
+
+          <SearchUser
+            selectUser={selectUser}
+            name={name}
+            setName={setName}
+            nameUser={nameUser}
+            setNameUser={setNameUser}
+          />
           {urlProfile && (
             <>
               <ImageUser

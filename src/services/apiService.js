@@ -19,13 +19,8 @@ async function logout(token) {
   return response;
 }
 
-async function getUserPlaylist(token, userid) {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const response = await axios.get(`${BASE_URL}/user?userid=${userid}`, config);
+async function getUserPlaylist(userid) {
+  const response = await axios.get(`${BASE_URL}/user?userid=${userid}`);
 
   return response;
 }
@@ -71,7 +66,7 @@ async function movieIsLiked(token, movieid) {
   const body = {
     movieid: movieid,
   };
-  console.log(config, body);
+
   const response = await axios.post(
     `${BASE_URL}/add-movie/isfavorite`,
     body,
@@ -144,6 +139,12 @@ async function removeComment(token, commentid) {
   return response;
 }
 
+async function getUser(name) {
+  const response = await axios.get(`${BASE_URL}/user/name?username=${name}`);
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -155,4 +156,5 @@ export {
   getCommentsMovie,
   postCommentsMovie,
   removeComment,
+  getUser,
 };

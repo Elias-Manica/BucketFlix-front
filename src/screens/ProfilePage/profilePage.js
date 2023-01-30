@@ -33,13 +33,12 @@ export default function ProfilePage() {
 
   async function getData() {
     try {
-      const response = await getUserPlaylist(urlProfile.token, id);
+      const response = await getUserPlaylist(id);
 
       setUrlImg(response.data.pictureUrl);
       setName(response.data.username);
       setMovieLiked(response.data.listmovies);
     } catch (error) {
-      console.log(error);
       if (error.response.data.msg) {
         Swal.fire({
           position: "top-end",
@@ -100,9 +99,15 @@ export default function ProfilePage() {
                   ))
                 ) : (
                   <ContainerEmpty>
-                    <TextEmpty>
-                      Você não adicionou nenhum filme a sua lista :|{" "}
-                    </TextEmpty>
+                    {Number(urlProfile.userid) === Number(id) ? (
+                      <TextEmpty>
+                        Você não adicionou nenhum filme a sua lista :|{" "}
+                      </TextEmpty>
+                    ) : (
+                      <TextEmpty>
+                        Este usuário não tem nenhum filme na lista :|
+                      </TextEmpty>
+                    )}
                   </ContainerEmpty>
                 )}
               </ContainerMovie>
