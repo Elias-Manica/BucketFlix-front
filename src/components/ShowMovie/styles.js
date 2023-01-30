@@ -6,9 +6,7 @@ export const Container = styled.div`
   background-position: center;
   margin-top: 70px;
   background-image: ${(props) =>
-    props.img
-      ? `url(https://image.tmdb.org/t/p/original${props.img})`
-      : console.log("não tem")};
+    props.img ? `url(https://image.tmdb.org/t/p/original${props.img})` : null};
 
   @media (max-width: 700px) {
     height: 60vh;
@@ -38,6 +36,9 @@ export const ViewStylesHorizontal = styled.div`
   padding-left: 30px;
   padding-bottom: 110px;
   padding-top: 70px;
+  @media (max-width: 700px) {
+    padding-top: ${(props) => (props.isBig ? 0 : 70)}px;
+  }
 `;
 
 export const ContainerInfos = styled.div`
@@ -77,6 +78,7 @@ export const ContainerButtons = styled.div`
   font-size: 20px;
   font-weight: bold;
   @media (max-width: 700px) {
+    display: initial;
     font-size: 16px;
   }
 `;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import Header from "../../components/Header/header";
@@ -31,7 +31,7 @@ export default function ProfilePage() {
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
-  async function getData() {
+  const getData = useCallback(async () => {
     try {
       const response = await getUserPlaylist(id);
 
@@ -59,11 +59,11 @@ export default function ProfilePage() {
       });
       setExist(true);
     }
-  }
+  }, [id]);
 
   useEffect(() => {
     getData();
-  }, [id]);
+  }, [id, getData]);
 
   return (
     <>

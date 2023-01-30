@@ -101,7 +101,6 @@ export default function ShowMovie({ data, inputRef }) {
       const response = await movieIsLiked(urlProfile.token, data.id);
       setIsLiked(response.data.id);
     } catch (error) {
-      console.log(error);
       setIsLiked(false);
     }
   }
@@ -117,7 +116,15 @@ export default function ShowMovie({ data, inputRef }) {
     <>
       <Container img={data.backdrop_path}>
         <ViewStyles>
-          <ViewStylesHorizontal>
+          <ViewStylesHorizontal
+            isBig={
+              data.overview
+                ? data.overview.length > 550
+                  ? true
+                  : false
+                : false
+            }
+          >
             <Tittle>{data.title}</Tittle>
             <ContainerInfos>
               <ViewGrade>

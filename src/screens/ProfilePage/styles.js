@@ -23,8 +23,8 @@ export const FirstContainer = styled.div`
 
 export const ImageProfile = styled.img`
   height: 150px;
-  @media (max-width: 614px) {
-    height: 100px;
+  @media (max-width: 700px) {
+    height: 80px;
   }
 `;
 
@@ -32,6 +32,9 @@ export const Text = styled.h1`
   font-size: 50px;
   font-weight: bold;
   margin-left: 30px;
+  @media (max-width: 700px) {
+    font-size: 35px;
+  }
 `;
 
 export const ButtonComment = styled.div`
@@ -48,7 +51,7 @@ export const ButtonComment = styled.div`
   :hover {
     opacity: 0.7;
   }
-  @media (max-width: 614px) {
+  @media (max-width: 700px) {
     display: none;
   }
 `;
@@ -57,6 +60,9 @@ export const ContainerMovie = styled.div`
   display: flex;
   flex-wrap: wrap;
   margin: 30px 0px;
+  @media (max-width: 700px) {
+    justify-content: center;
+  }
 `;
 
 export const ImageMovie = styled.img`
@@ -70,7 +76,7 @@ export const ImageMovie = styled.img`
     transform: scale(1);
     cursor: pointer;
   }
-  @media (max-width: 614px) {
+  @media (max-width: 700px) {
     height: 100px;
   }
 `;

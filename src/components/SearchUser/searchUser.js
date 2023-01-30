@@ -24,6 +24,7 @@ export default function SearchUser({
   setName,
   nameUser,
   setNameUser,
+  isMobile,
 }) {
   const [list, setList] = useState([]);
 
@@ -56,8 +57,9 @@ export default function SearchUser({
 
   return (
     <View>
-      <ContainerInput>
+      <ContainerInput isMobile={isMobile}>
         <Input
+          isMobile={isMobile}
           placeholder={
             selectUser ? "Pesquise por usuários..." : "Pesquise por filmes..."
           }
