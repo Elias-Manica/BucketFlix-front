@@ -28,6 +28,7 @@ export default function Comments({
 }) {
   const [rated, setRated] = useState(0);
   const [text, setText] = useState("");
+  const [loadingPost, setLoadingPost] = useState(false);
 
   const navigate = useNavigate();
 
@@ -44,11 +45,24 @@ export default function Comments({
       });
       return;
     }
+    if (text.length >= 240) {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Seu comentário deve ter no máximo 240 caracteres",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      return;
+    }
+    setLoadingPost(true);
     try {
       await postCommentsMovie(urlProfile.token, movieid, rated, text);
+      setRated(0);
+      setText("");
       getComment();
+      setLoadingPost(false);
     } catch (error) {
-      console.log(error);
       if (error.response.data.msg) {
         Swal.fire({
           position: "top-end",
@@ -57,7 +71,7 @@ export default function Comments({
           showConfirmButton: false,
           timer: 1500,
         });
-
+        setLoadingPost(false);
         return;
       }
       Swal.fire({
@@ -67,6 +81,7 @@ export default function Comments({
         showConfirmButton: false,
         timer: 1500,
       });
+      setLoadingPost(false);
     }
   }
 
@@ -198,10 +213,15 @@ export default function Comments({
           ref={inputRef}
           value={text}
           onChange={(e) => setText(e.target.value)}
+          disabled={loadingPost}
         />
-        <Icon onClick={postComment}>
-          <IoMdSend />
-        </Icon>
+        {loadingPost ? (
+          <ThreeDots color="white" height={40} width={40} />
+        ) : (
+          <Icon onClick={postComment}>
+            <IoMdSend />
+          </Icon>
+        )}
       </ViewComment>
       <CommentContainer>
         {loading ? (
@@ -215,7 +235,9 @@ export default function Comments({
               comment={item.comment}
               date={item.createdat}
               userid={item.users.id}
-              rate={item.rating}
+              rated={item.rating}
+              commentid={item.id}
+              getComment={getComment}
             />
           ))
         ) : (

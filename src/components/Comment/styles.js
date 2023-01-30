@@ -69,13 +69,13 @@ export const ContainerRated = styled.div`
 
 export const Star = styled.div`
   font-size: 18px;
-  cursor: pointer;
+
   margin-left: 5px;
 `;
 
 export const StarFilled = styled.div`
   font-size: 18px;
-  cursor: pointer;
+
   margin-left: 5px;
   color: #ffe600;
 `;

@@ -124,9 +124,22 @@ async function postCommentsMovie(token, movieid, rating, comment) {
     rating: rating,
   };
 
-  console.log(body, "body");
-
   const response = await axios.post(`${BASE_URL}/comments`, body, config);
+
+  return response;
+}
+
+async function removeComment(token, commentid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(
+    `${BASE_URL}/comments?commentid=${commentid}`,
+    config
+  );
 
   return response;
 }
@@ -141,4 +154,5 @@ export {
   removeMovie,
   getCommentsMovie,
   postCommentsMovie,
+  removeComment,
 };
