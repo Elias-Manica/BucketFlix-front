@@ -17,7 +17,7 @@ export const NameUser = styled.h3`
 
 export const CommentInfo = styled.div`
   background: #343334;
-  width: 70%;
+  width: 100%;
   padding: 30px 20px;
   position: relative;
 `;
@@ -57,4 +57,25 @@ export const DeleteIcon = styled.div`
 export const CommentContainer = styled.div`
   display: flex;
   margin-top: 20px;
+  width: 85%;
+`;
+
+export const ContainerRated = styled.div`
+  margin-left: 50px;
+  margin-bottom: 10px;
+  display: flex;
+  font-size: 20px;
+`;
+
+export const Star = styled.div`
+  font-size: 18px;
+
+  margin-left: 5px;
+`;
+
+export const StarFilled = styled.div`
+  font-size: 18px;
+
+  margin-left: 5px;
+  color: #ffe600;
 `;

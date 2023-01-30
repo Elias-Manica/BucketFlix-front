@@ -74,3 +74,16 @@ export const ImageMovie = styled.img`
     height: 100px;
   }
 `;
+
+export const TextEmpty = styled.h1`
+  font-weight: bold;
+  font-size: 20px;
+  text-align: center;
+`;
+
+export const ContainerEmpty = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+`;

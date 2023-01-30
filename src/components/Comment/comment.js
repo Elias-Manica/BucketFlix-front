@@ -1,45 +1,225 @@
+import { useNavigate } from "react-router-dom";
+
 import {
   CommentUser,
   ImageUser,
   NameUser,
   CommentInfo,
   ViewStar,
-  StarRated,
   TextComment,
   TextDate,
   DeleteIcon,
   CommentContainer,
+  Star,
+  StarFilled,
 } from "./styles";
 
 import { IoIosStarOutline, IoIosStar, IoIosClose } from "react-icons/io";
 
-export default function CommentStyle() {
+import { removeComment } from "../../services/apiService";
+import Swal from "sweetalert2";
+
+export default function CommentStyle({
+  name,
+  img,
+  comment,
+  date,
+  userid,
+  rated,
+  commentid,
+  getComment,
+}) {
+  const navigate = useNavigate();
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
+  const remove = async () => {
+    try {
+      Swal.fire({
+        title: "Tem certeza que deseja excluir o comentário?",
+        text: "Você não consiguirá recuperá-lo",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sim, quero deletar!",
+      })
+        .then(async () => {
+          const response = await removeComment(urlProfile.token, commentid);
+          if (response.data.msg) {
+            Swal.fire({
+              position: "top-end",
+              icon: "sucess",
+              title: `${response.data.msg}`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+            getComment();
+            return;
+          }
+          Swal.fire({
+            position: "top-end",
+            icon: "sucess",
+            title: "Comentário removido",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          getComment();
+        })
+        .catch(() => {
+          return;
+        });
+    } catch (error) {
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
+
   return (
     <CommentContainer>
       <CommentUser>
-        <ImageUser src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-        <NameUser>Elias da silva leignht</NameUser>
+        <ImageUser src={img} onClick={() => navigate(`/user/${userid}`)} />
+        <NameUser>{name}</NameUser>
       </CommentUser>
       <CommentInfo>
         <ViewStar>
-          <StarRated>
-            <IoIosStar />
-          </StarRated>
-          <StarRated>
-            <IoIosStar />
-          </StarRated>
-          <IoIosStarOutline />
-          <IoIosStarOutline />
-          <IoIosStarOutline />
+          {rated === 0 && (
+            <>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+            </>
+          )}
+          {rated === 1 && (
+            <>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+            </>
+          )}
+          {rated === 2 && (
+            <>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+            </>
+          )}
+          {rated === 3 && (
+            <>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+            </>
+          )}
+          {rated === 4 && (
+            <>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <Star>
+                <IoIosStarOutline />
+              </Star>
+            </>
+          )}
+          {rated === 5 && (
+            <>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+              <StarFilled>
+                <IoIosStar />
+              </StarFilled>
+            </>
+          )}
         </ViewStar>
-        <TextComment>
-          Muito ruim Muito ruim Muito ruimMuito ruim Muito ruim Muito ruim Muito
-          ruimMuito ruim Muito ruim Muito ruim Muito ruimMuito ruim
-        </TextComment>
-        <TextDate>26/01/2023</TextDate>
-        <DeleteIcon>
-          <IoIosClose />
-        </DeleteIcon>
+        <TextComment>{comment}</TextComment>
+        <TextDate>{new Date(date).toLocaleString("pt-BR")}</TextDate>
+        {Number(urlProfile.userid) === userid && (
+          <DeleteIcon onClick={remove}>
+            <IoIosClose />
+          </DeleteIcon>
+        )}
       </CommentInfo>
     </CommentContainer>
   );

@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+
+import { useNavigate } from "react-router-dom";
+
 import {
   Button,
   ButtonComment,
@@ -13,7 +17,102 @@ import {
   ViewTime,
 } from "./styles";
 
+import {
+  addMovieInDB,
+  likeMovie,
+  movieIsLiked,
+  removeMovie,
+} from "../../services/apiService";
+
+import Swal from "sweetalert2";
+import { ThreeDots } from "react-loader-spinner";
+
 export default function ShowMovie({ data, inputRef }) {
+  const navigate = useNavigate();
+  const [isLiked, setIsLiked] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
+  if (urlProfile) {
+    movieIsInLis();
+  }
+
+  async function addMovie() {
+    if (!urlProfile) {
+      navigate("/login");
+      return;
+    }
+    if (!isLiked) {
+      setLoading(true);
+      try {
+        await likeMovie(urlProfile.token, data.id);
+        setIsLiked(true);
+      } catch (error) {
+        if (error.response.data.msg) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: `${error.response.data.msg}`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          return;
+        }
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Algo de errado aconteceu, tente novamente mais tarde",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      setLoading(false);
+    } else {
+      setLoading(true);
+      try {
+        await removeMovie(urlProfile.token, isLiked);
+        setIsLiked(false);
+      } catch (error) {
+        if (error.response.data.msg) {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: `${error.response.data.msg}`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          return;
+        }
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: "Algo de errado aconteceu, tente novamente mais tarde",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+      setLoading(false);
+    }
+  }
+
+  async function movieIsInLis() {
+    try {
+      const response = await movieIsLiked(urlProfile.token, data.id);
+      setIsLiked(response.data.id);
+    } catch (error) {
+      console.log(error);
+      setIsLiked(false);
+    }
+  }
+
+  useEffect(() => {
+    if (urlProfile) {
+      addMovieInDB(urlProfile.token, data.id);
+      return;
+    }
+  }, [urlProfile, data.id]);
+
   return (
     <>
       <Container img={data.backdrop_path}>
@@ -36,8 +135,28 @@ export default function ShowMovie({ data, inputRef }) {
             </ContainerInfos>
             <ViewDescription>{data.overview}</ViewDescription>
             <ContainerButtons>
-              <Button>+ Minha lista</Button>
-              <ButtonComment onClick={() => inputRef.current.focus()}>
+              <Button onClick={addMovie}>
+                {isLiked > 0 ? (
+                  loading ? (
+                    <ThreeDots color="black" height={40} width={40} />
+                  ) : (
+                    <p>Remover da minha lista</p>
+                  )
+                ) : loading ? (
+                  <ThreeDots color="black" height={40} width={40} />
+                ) : (
+                  <p>Adicionar na minha lista</p>
+                )}
+              </Button>
+              <ButtonComment
+                onClick={() => {
+                  if (!urlProfile) {
+                    navigate("/login");
+                    return;
+                  }
+                  inputRef.current.focus();
+                }}
+              >
                 Adicionar comentário
               </ButtonComment>
             </ContainerButtons>

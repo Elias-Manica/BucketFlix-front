@@ -29,6 +29,7 @@ export const Icon = styled.div`
 export const CommentContainer = styled.div`
   display: flex;
   margin-top: 20px;
+  flex-direction: column;
 `;
 
 export const CommentUser = styled.div``;

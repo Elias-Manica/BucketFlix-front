@@ -1,51 +1,125 @@
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 
 import Header from "../../components/Header/header";
 
 import {
   ButtonComment,
   Container,
+  ContainerEmpty,
   ContainerMovie,
   FirstContainer,
   ImageMovie,
   ImageProfile,
   Text,
+  TextEmpty,
   TopProfile,
   ViewTop,
 } from "./styles";
 
+import { getUserPlaylist } from "../../services/apiService";
+
+import Swal from "sweetalert2";
+
 export default function ProfilePage() {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [urlImg, setUrlImg] = useState("");
+  const [name, setName] = useState("");
+  const [exist, setExist] = useState(false);
+  const [movieLiked, setMovieLiked] = useState([]);
+
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
+  async function getData() {
+    try {
+      const response = await getUserPlaylist(id);
+
+      setUrlImg(response.data.pictureUrl);
+      setName(response.data.username);
+      setMovieLiked(response.data.listmovies);
+    } catch (error) {
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setExist(true);
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setExist(true);
+    }
+  }
+
+  useEffect(() => {
+    getData();
+  }, [id]);
 
   return (
     <>
       <Container>
         <Header />
         <ViewTop>
-          <TopProfile>
-            <FirstContainer>
-              <ImageProfile src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-              <Text>Minha lista</Text>
-            </FirstContainer>
-            <ButtonComment onClick={() => navigate("/")}>
-              Adicionar mais filmes
-            </ButtonComment>
-          </TopProfile>
-          <ContainerMovie>
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-            <ImageMovie src="https://i.pinimg.com/736x/b2/a0/29/b2a029a6c2757e9d3a09265e3d07d49d.jpg" />
-          </ContainerMovie>
+          {exist ? (
+            <Text>Nenhum usuário encontrado</Text>
+          ) : (
+            <>
+              {urlProfile && (
+                <>
+                  <TopProfile>
+                    <FirstContainer>
+                      <ImageProfile src={urlImg} />
+                      {Number(urlProfile.userid) === Number(id) ? (
+                        <Text>Minha lista</Text>
+                      ) : (
+                        <Text>{name}</Text>
+                      )}
+                    </FirstContainer>
+                    {Number(urlProfile.userid) === Number(id) && (
+                      <ButtonComment onClick={() => navigate("/")}>
+                        Adicionar mais filmes
+                      </ButtonComment>
+                    )}
+                  </TopProfile>
+                  <ContainerMovie>
+                    {movieLiked.length > 0 ? (
+                      movieLiked.map((item, index) => (
+                        <ImageMovie
+                          key={index}
+                          src={`https://image.tmdb.org/t/p/w300${item.movies.poster_path}`}
+                          onClick={() =>
+                            navigate(`/movie/${item.movies.movieid}`)
+                          }
+                        />
+                      ))
+                    ) : (
+                      <ContainerEmpty>
+                        {Number(urlProfile.userid) === Number(id) ? (
+                          <TextEmpty>
+                            Você não adicionou nenhum filme a sua lista :|{" "}
+                          </TextEmpty>
+                        ) : (
+                          <TextEmpty>
+                            Este usuário não tem nenhum filme na lista :|
+                          </TextEmpty>
+                        )}
+                      </ContainerEmpty>
+                    )}
+                  </ContainerMovie>
+                </>
+              )}
+            </>
+          )}
         </ViewTop>
       </Container>
     </>

@@ -84,6 +84,14 @@ async function getMovieSpecific(movieid) {
   return response;
 }
 
+async function getMovieByName(name) {
+  const response = await axios.get(
+    `${API_BASE}/search/movie?query=${name}&${API_KEY}&${LANGUAGE}`
+  );
+
+  return response;
+}
+
 async function getAllData() {
   const top = await getTopRated();
   const popular = await getPopularMovies();
@@ -113,4 +121,5 @@ export {
   getHorrorMovies,
   getRomanceMovies,
   getMovieSpecific,
+  getMovieByName,
 };

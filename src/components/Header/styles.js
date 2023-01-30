@@ -62,14 +62,19 @@ export const ContainerFirst = styled.div`
 `;
 
 export const ViewIcon = styled.div`
-  cursor: pointer;
+  font-size: 25px;
+  margin-right: 3px;
+`;
 
+export const ViewIconDisable = styled.div`
+  cursor: pointer;
+  color: #000;
   font-size: 25px;
   margin-right: 3px;
 `;
 
 export const Input = styled.input`
-  width: 230px;
+  width: 250px;
   height: 40px;
   margin-right: 10px;
   background: #343334;
@@ -119,3 +124,5 @@ export const ButtonSignIn = styled.div`
   height: 40px;
   background-color: red;
 `;
+
+export const ContainerSearch = styled.div``;
