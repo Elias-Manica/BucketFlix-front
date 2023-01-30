@@ -57,6 +57,7 @@ export default function ProfilePage() {
         showConfirmButton: false,
         timer: 1500,
       });
+      setExist(true);
     }
   }
 
@@ -73,44 +74,50 @@ export default function ProfilePage() {
             <Text>Nenhum usuário encontrado</Text>
           ) : (
             <>
-              <TopProfile>
-                <FirstContainer>
-                  <ImageProfile src={urlImg} />
-                  {Number(urlProfile.userid) === Number(id) ? (
-                    <Text>Minha lista</Text>
-                  ) : (
-                    <Text>{name}</Text>
-                  )}
-                </FirstContainer>
-                {Number(urlProfile.userid) === Number(id) && (
-                  <ButtonComment onClick={() => navigate("/")}>
-                    Adicionar mais filmes
-                  </ButtonComment>
-                )}
-              </TopProfile>
-              <ContainerMovie>
-                {movieLiked.length > 0 ? (
-                  movieLiked.map((item, index) => (
-                    <ImageMovie
-                      key={index}
-                      src={`https://image.tmdb.org/t/p/w300${item.movies.poster_path}`}
-                      onClick={() => navigate(`/movie/${item.movies.movieid}`)}
-                    />
-                  ))
-                ) : (
-                  <ContainerEmpty>
-                    {Number(urlProfile.userid) === Number(id) ? (
-                      <TextEmpty>
-                        Você não adicionou nenhum filme a sua lista :|{" "}
-                      </TextEmpty>
-                    ) : (
-                      <TextEmpty>
-                        Este usuário não tem nenhum filme na lista :|
-                      </TextEmpty>
+              {urlProfile && (
+                <>
+                  <TopProfile>
+                    <FirstContainer>
+                      <ImageProfile src={urlImg} />
+                      {Number(urlProfile.userid) === Number(id) ? (
+                        <Text>Minha lista</Text>
+                      ) : (
+                        <Text>{name}</Text>
+                      )}
+                    </FirstContainer>
+                    {Number(urlProfile.userid) === Number(id) && (
+                      <ButtonComment onClick={() => navigate("/")}>
+                        Adicionar mais filmes
+                      </ButtonComment>
                     )}
-                  </ContainerEmpty>
-                )}
-              </ContainerMovie>
+                  </TopProfile>
+                  <ContainerMovie>
+                    {movieLiked.length > 0 ? (
+                      movieLiked.map((item, index) => (
+                        <ImageMovie
+                          key={index}
+                          src={`https://image.tmdb.org/t/p/w300${item.movies.poster_path}`}
+                          onClick={() =>
+                            navigate(`/movie/${item.movies.movieid}`)
+                          }
+                        />
+                      ))
+                    ) : (
+                      <ContainerEmpty>
+                        {Number(urlProfile.userid) === Number(id) ? (
+                          <TextEmpty>
+                            Você não adicionou nenhum filme a sua lista :|{" "}
+                          </TextEmpty>
+                        ) : (
+                          <TextEmpty>
+                            Este usuário não tem nenhum filme na lista :|
+                          </TextEmpty>
+                        )}
+                      </ContainerEmpty>
+                    )}
+                  </ContainerMovie>
+                </>
+              )}
             </>
           )}
         </ViewTop>

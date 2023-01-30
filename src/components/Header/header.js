@@ -91,6 +91,10 @@ export default function Header() {
             <>
               <ViewIconDisable
                 onClick={() => {
+                  if (!urlProfile) {
+                    navigate("/login");
+                    return;
+                  }
                   setSelectUser(false);
                   setName("");
                   setNameUser("");
@@ -109,6 +113,10 @@ export default function Header() {
               </ViewIcon>
               <ViewIconDisable
                 onClick={() => {
+                  if (!urlProfile) {
+                    navigate("/login");
+                    return;
+                  }
                   setSelectUser(true);
                   setName("");
                   setNameUser("");
