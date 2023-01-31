@@ -16,7 +16,7 @@ import {
   ViewTop,
 } from "./styles";
 
-import { getUserPlaylist } from "../../services/apiService";
+import { getUserPlaylist, getwatchmovie } from "../../services/apiService";
 
 import Swal from "sweetalert2";
 import ScrollMyMovies from "../../components/ScrollMyMovies/scrollMyMovies";
@@ -28,6 +28,7 @@ export default function ProfilePage() {
   const [name, setName] = useState("");
   const [exist, setExist] = useState(false);
   const [movieLiked, setMovieLiked] = useState([]);
+  const [watchMovies, setWatchMovies] = useState([]);
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
@@ -61,9 +62,36 @@ export default function ProfilePage() {
     }
   }, [id]);
 
+  const getWatch = useCallback(async () => {
+    try {
+      const response = await getwatchmovie(id);
+
+      setWatchMovies(response.data);
+    } catch (error) {
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }, [id]);
+
   useEffect(() => {
     getData();
-  }, [id, getData]);
+    getWatch();
+  }, [id, getData, getWatch]);
 
   return (
     <>
@@ -103,6 +131,26 @@ export default function ProfilePage() {
                         ) : (
                           <TextEmpty>
                             Este usuário não tem nenhum filme na lista :|
+                          </TextEmpty>
+                        )}
+                      </ContainerEmpty>
+                    )}
+                    {watchMovies.length > 0 ? (
+                      <ScrollMyMovies
+                        tittle="Assistidos"
+                        list={watchMovies}
+                        isWatch={true}
+                      />
+                    ) : (
+                      <ContainerEmpty>
+                        {Number(urlProfile.userid) === Number(id) ? (
+                          <TextEmpty>
+                            Você não adicionou nenhum filme a sua lista de
+                            assistidos :|{" "}
+                          </TextEmpty>
+                        ) : (
+                          <TextEmpty>
+                            Este usuário não tem nenhum filme assistido :|
                           </TextEmpty>
                         )}
                       </ContainerEmpty>

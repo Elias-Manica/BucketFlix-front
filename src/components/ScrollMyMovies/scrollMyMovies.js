@@ -15,7 +15,7 @@ import {
   ViewRight,
 } from "./styles";
 
-export default function ScrollMyMovies({ tittle, list }) {
+export default function ScrollMyMovies({ tittle, list, isWatch }) {
   const [margin, setMargin] = useState(0);
   const navigate = useNavigate();
 
@@ -49,21 +49,39 @@ export default function ScrollMyMovies({ tittle, list }) {
           <AiOutlineArrowRight />
         </ViewRight>
         <ContainerRow>
-          <Row pass={margin} size={list.length * 150}>
-            {list.length > 0
-              ? list.map((item, index) => (
-                  <ContainerMovie
-                    key={index}
-                    onClick={() => navigate(`/movie/${item.movieid}`)}
-                  >
-                    <Image
-                      src={`https://image.tmdb.org/t/p/w300${item.movies.poster_path}`}
-                      alt={item.movies.original_title}
-                    />
-                  </ContainerMovie>
-                ))
-              : null}
-          </Row>
+          {isWatch ? (
+            <Row pass={margin} size={list.length * 150}>
+              {list.length > 0
+                ? list.map((item, index) => (
+                    <ContainerMovie
+                      key={index}
+                      onClick={() => navigate(`/movie/${item.movieid}`)}
+                    >
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w300${item.movie.poster_path}`}
+                        alt={item.movie.original_title}
+                      />
+                    </ContainerMovie>
+                  ))
+                : null}
+            </Row>
+          ) : (
+            <Row pass={margin} size={list.length * 150}>
+              {list.length > 0
+                ? list.map((item, index) => (
+                    <ContainerMovie
+                      key={index}
+                      onClick={() => navigate(`/movie/${item.movieid}`)}
+                    >
+                      <Image
+                        src={`https://image.tmdb.org/t/p/w300${item.movies.poster_path}`}
+                        alt={item.movies.original_title}
+                      />
+                    </ContainerMovie>
+                  ))
+                : null}
+            </Row>
+          )}
         </ContainerRow>
       </Container>
     </>

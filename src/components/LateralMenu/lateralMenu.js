@@ -108,7 +108,7 @@ export default function LateralMenu({
                 navigate(`/user/${urlProfile.userid}`);
               }}
             >
-              Minha lista
+              Meu perfil
             </Text>
             {urlProfile && (
               <TextLogout onClick={logOutFunction}>Logout</TextLogout>

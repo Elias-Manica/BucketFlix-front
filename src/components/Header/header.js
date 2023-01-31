@@ -96,7 +96,7 @@ export default function Header() {
                 navigate("/login");
               }}
             >
-              Minha lista
+              Meu perfil
             </TextPages>
             {!urlProfile && (
               <TextPages onClick={() => navigate("/login")}>

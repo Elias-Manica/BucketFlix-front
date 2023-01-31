@@ -196,6 +196,14 @@ async function removewatchmovie(token, movieid) {
   return response;
 }
 
+async function getwatchmovie(userid) {
+  const response = await axios.get(
+    `${BASE_URL}/add-movie/watched/list?userid=${userid}`
+  );
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -211,4 +219,5 @@ export {
   movieIsWatched,
   addwatchmovie,
   removewatchmovie,
+  getwatchmovie,
 };
