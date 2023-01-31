@@ -77,6 +77,7 @@ export const ContainerButtons = styled.div`
   display: flex;
   font-size: 20px;
   font-weight: bold;
+  position: relative;
   @media (max-width: 700px) {
     display: initial;
     font-size: 16px;
@@ -106,6 +107,7 @@ export const Button = styled.div`
 export const ButtonComment = styled.div`
   background-color: #333;
   color: #fff;
+  margin-right: 10px;
   cursor: pointer;
   padding: 12px 25px;
   display: flex;
@@ -117,7 +119,58 @@ export const ButtonComment = styled.div`
   :hover {
     opacity: 0.7;
   }
+
   @media (max-width: 700px) {
     padding: 10px 20px;
   }
+`;
+
+export const TextButton = styled.p`
+  margin-right: 5px;
+`;
+
+export const Modal = styled.div`
+  background-color: #7a7a7a;
+  width: 40%;
+  height: 70px;
+  display: ${(props) => (props.isVisible ? "initial" : "none")};
+  position: absolute;
+  bottom: -80px;
+
+  border-radius: 4px;
+  color: white;
+  @media (max-width: 700px) {
+    width: 95%;
+  }
+`;
+
+export const TextModal = styled.p`
+  font-size: 10px;
+  text-align: center;
+  margin-top: 10px;
+`;
+
+export const Star = styled.div`
+  font-size: 18px;
+
+  margin-left: 5px;
+`;
+
+export const StarFilled = styled.div`
+  font-size: 18px;
+
+  margin-left: 5px;
+  color: #ffe600;
+`;
+
+export const ContainerStar = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 5px;
+`;
+
+export const ContainerIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
 `;

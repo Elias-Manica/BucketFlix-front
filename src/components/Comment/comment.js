@@ -214,7 +214,7 @@ export default function CommentStyle({
           )}
         </ViewStar>
         <TextComment>{comment}</TextComment>
-        <TextDate>{new Date(date).toLocaleString("pt-BR")}</TextDate>
+        <TextDate>{new Date(date).toUTCString("pt-BR")}</TextDate>
         {Number(urlProfile.userid) === userid && (
           <DeleteIcon onClick={remove}>
             <IoIosClose />

@@ -9,7 +9,6 @@ import {
   ContainerEmpty,
   ContainerMovie,
   FirstContainer,
-  ImageMovie,
   ImageProfile,
   Text,
   TextEmpty,
@@ -20,6 +19,7 @@ import {
 import { getUserPlaylist } from "../../services/apiService";
 
 import Swal from "sweetalert2";
+import ScrollMyMovies from "../../components/ScrollMyMovies/scrollMyMovies";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -80,7 +80,7 @@ export default function ProfilePage() {
                     <FirstContainer>
                       <ImageProfile src={urlImg} />
                       {Number(urlProfile.userid) === Number(id) ? (
-                        <Text>Minha lista</Text>
+                        <Text>Meu perfil</Text>
                       ) : (
                         <Text>{name}</Text>
                       )}
@@ -93,15 +93,7 @@ export default function ProfilePage() {
                   </TopProfile>
                   <ContainerMovie>
                     {movieLiked.length > 0 ? (
-                      movieLiked.map((item, index) => (
-                        <ImageMovie
-                          key={index}
-                          src={`https://image.tmdb.org/t/p/w300${item.movies.poster_path}`}
-                          onClick={() =>
-                            navigate(`/movie/${item.movies.movieid}`)
-                          }
-                        />
-                      ))
+                      <ScrollMyMovies tittle="Minha lista" list={movieLiked} />
                     ) : (
                       <ContainerEmpty>
                         {Number(urlProfile.userid) === Number(id) ? (

@@ -57,12 +57,7 @@ export const ButtonComment = styled.div`
 `;
 
 export const ContainerMovie = styled.div`
-  display: flex;
-  flex-wrap: wrap;
   margin: 30px 0px;
-  @media (max-width: 700px) {
-    justify-content: center;
-  }
 `;
 
 export const ImageMovie = styled.img`
