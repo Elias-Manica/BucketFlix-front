@@ -70,3 +70,24 @@ export const ViewRight = styled.div`
   overflow: hidden;
   cursor: pointer;
 `;
+
+export const ViewStar = styled.div`
+  display: flex;
+  font-size: 20px;
+  width: 100%;
+  justify-content: center;
+  margin-top: 5px;
+`;
+
+export const Star = styled.div`
+  font-size: 18px;
+
+  margin-left: 5px;
+`;
+
+export const StarFilled = styled.div`
+  font-size: 18px;
+
+  margin-left: 5px;
+  color: #ffe600;
+`;

@@ -146,7 +146,7 @@ export default function ProfilePage() {
                         {Number(urlProfile.userid) === Number(id) ? (
                           <TextEmpty>
                             Você não adicionou nenhum filme a sua lista de
-                            assistidos :|{" "}
+                            assistidos :|
                           </TextEmpty>
                         ) : (
                           <TextEmpty>

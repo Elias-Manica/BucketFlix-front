@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import { IoIosStarOutline, IoIosStar } from "react-icons/io";
 
 import {
   Container,
@@ -10,9 +11,12 @@ import {
   ContainerRow,
   Image,
   Row,
+  Star,
+  StarFilled,
   Tittle,
   ViewLeft,
   ViewRight,
+  ViewStar,
 } from "./styles";
 
 export default function ScrollMyMovies({ tittle, list, isWatch }) {
@@ -57,6 +61,122 @@ export default function ScrollMyMovies({ tittle, list, isWatch }) {
                       key={index}
                       onClick={() => navigate(`/movie/${item.movieid}`)}
                     >
+                      <ViewStar>
+                        {item.rating === 0 && (
+                          <>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                          </>
+                        )}
+                        {item.rating === 1 && (
+                          <>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                          </>
+                        )}
+                        {item.rating === 2 && (
+                          <>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                          </>
+                        )}
+                        {item.rating === 3 && (
+                          <>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                          </>
+                        )}
+                        {item.rating === 4 && (
+                          <>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <Star>
+                              <IoIosStarOutline />
+                            </Star>
+                          </>
+                        )}
+                        {item.rating === 5 && (
+                          <>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                            <StarFilled>
+                              <IoIosStar />
+                            </StarFilled>
+                          </>
+                        )}
+                      </ViewStar>
                       <Image
                         src={`https://image.tmdb.org/t/p/w300${item.movie.poster_path}`}
                         alt={item.movie.original_title}
