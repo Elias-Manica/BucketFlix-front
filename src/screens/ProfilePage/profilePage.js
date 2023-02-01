@@ -16,7 +16,13 @@ import {
   ViewTop,
 } from "./styles";
 
-import { getUserPlaylist, getwatchmovie } from "../../services/apiService";
+import {
+  follow,
+  getUserPlaylist,
+  getwatchmovie,
+  unfollow,
+  userIsFollow,
+} from "../../services/apiService";
 
 import Swal from "sweetalert2";
 import ScrollMyMovies from "../../components/ScrollMyMovies/scrollMyMovies";
@@ -29,8 +35,73 @@ export default function ProfilePage() {
   const [exist, setExist] = useState(false);
   const [movieLiked, setMovieLiked] = useState([]);
   const [watchMovies, setWatchMovies] = useState([]);
+  const [isFollowing, setIsFollowing] = useState(false);
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
+  if (urlProfile) {
+    isFollow();
+  }
+
+  async function isFollow() {
+    try {
+      await userIsFollow(urlProfile.token, id);
+      setIsFollowing(true);
+    } catch (error) {
+      setIsFollowing(false);
+    }
+  }
+
+  async function followUser() {
+    try {
+      await follow(urlProfile.token, id);
+      setIsFollowing(true);
+    } catch (error) {
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }
+
+  async function unfollowUser() {
+    try {
+      await unfollow(urlProfile.token, id);
+      setIsFollowing(false);
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }
 
   const getData = useCallback(async () => {
     try {
@@ -113,9 +184,33 @@ export default function ProfilePage() {
                         <Text>{name}</Text>
                       )}
                     </FirstContainer>
-                    {Number(urlProfile.userid) === Number(id) && (
+                    {Number(urlProfile.userid) === Number(id) ? (
                       <ButtonComment onClick={() => navigate("/")}>
                         Adicionar mais filmes
+                      </ButtonComment>
+                    ) : isFollowing ? (
+                      <ButtonComment
+                        onClick={() => {
+                          if (!urlProfile) {
+                            navigate("/");
+                            return;
+                          }
+                          unfollowUser();
+                        }}
+                      >
+                        Parar de seguir
+                      </ButtonComment>
+                    ) : (
+                      <ButtonComment
+                        onClick={() => {
+                          if (!urlProfile) {
+                            navigate("/");
+                            return;
+                          }
+                          followUser();
+                        }}
+                      >
+                        Seguir
                       </ButtonComment>
                     )}
                   </TopProfile>
@@ -137,7 +232,7 @@ export default function ProfilePage() {
                     )}
                     {watchMovies.length > 0 ? (
                       <ScrollMyMovies
-                        tittle="Assistidos"
+                        tittle="Assistidos recentemente"
                         list={watchMovies}
                         isWatch={true}
                       />

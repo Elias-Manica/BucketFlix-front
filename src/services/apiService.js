@@ -204,6 +204,52 @@ async function getwatchmovie(userid) {
   return response;
 }
 
+async function userIsFollow(token, userid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(
+    `${BASE_URL}/user/follow?userid=${userid}`,
+    config
+  );
+
+  return response;
+}
+
+async function follow(token, userid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(
+    `${BASE_URL}/user/follow?userid=${userid}`,
+    {},
+    config
+  );
+
+  return response;
+}
+
+async function unfollow(token, userid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(
+    `${BASE_URL}/user/follow?userid=${userid}`,
+    config
+  );
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -220,4 +266,7 @@ export {
   addwatchmovie,
   removewatchmovie,
   getwatchmovie,
+  userIsFollow,
+  follow,
+  unfollow,
 };

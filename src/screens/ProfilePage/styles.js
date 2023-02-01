@@ -14,6 +14,9 @@ export const TopProfile = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-around;
+  @media (max-width: 700px) {
+    display: initial;
+  }
 `;
 
 export const FirstContainer = styled.div`
@@ -24,7 +27,7 @@ export const FirstContainer = styled.div`
 export const ImageProfile = styled.img`
   height: 150px;
   @media (max-width: 700px) {
-    height: 80px;
+    height: 60px;
   }
 `;
 
@@ -33,7 +36,7 @@ export const Text = styled.h1`
   font-weight: bold;
   margin-left: 30px;
   @media (max-width: 700px) {
-    font-size: 35px;
+    font-size: 15px;
   }
 `;
 
@@ -52,7 +55,11 @@ export const ButtonComment = styled.div`
     opacity: 0.7;
   }
   @media (max-width: 700px) {
-    display: none;
+    padding: 10px 20px;
+    width: 50%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 

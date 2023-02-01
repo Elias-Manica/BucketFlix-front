@@ -7,6 +7,11 @@ export const Container = styled.div`
   &:hover {
     opacity: 1;
   }
+
+  @media (max-width: 700px) {
+    margin-bottom: 0px;
+    padding-left: 0px;
+  }
 `;
 
 export const Tittle = styled.h1`
