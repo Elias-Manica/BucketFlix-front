@@ -23,6 +23,8 @@ import {
 
 import {
   follow,
+  getFollowersOfUser,
+  getFollowersUser,
   getInfos,
   getUserPlaylist,
   getwatchmovie,
@@ -32,6 +34,7 @@ import {
 
 import Swal from "sweetalert2";
 import ScrollMyMovies from "../../components/ScrollMyMovies/scrollMyMovies";
+import ModalFollow from "../../components/ModalFollow/modalFollow";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -45,6 +48,11 @@ export default function ProfilePage() {
   const [following, setFollowing] = useState(0);
   const [followers, setFollowers] = useState(0);
   const [comments, setComments] = useState(0);
+  const [showFollowing, setShowFollowing] = useState(false);
+  const [listFollowing, setListFollowing] = useState([]);
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [listFollowers, setListFollowers] = useState([]);
+  const [loadingInfo, setLoadingInfo] = useState(false);
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
@@ -196,6 +204,66 @@ export default function ProfilePage() {
     }
   }, [id]);
 
+  async function getUserFollowing() {
+    setLoadingInfo(true);
+    setShowFollowers(true);
+    try {
+      const list = await getFollowersOfUser(id);
+      setListFollowers(list.data);
+      setLoadingInfo(false);
+    } catch (error) {
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setLoadingInfo(false);
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setLoadingInfo(false);
+    }
+  }
+
+  async function getFollowers() {
+    setLoadingInfo(true);
+    setShowFollowing(true);
+    try {
+      const list = await getFollowersUser(id);
+      setListFollowing(list.data);
+      setLoadingInfo(false);
+    } catch (error) {
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setLoadingInfo(false);
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setLoadingInfo(false);
+    }
+  }
+
   useEffect(() => {
     getData();
     getWatch();
@@ -220,15 +288,29 @@ export default function ProfilePage() {
                         <ContainerInfos>
                           <Text>Meu perfil</Text>
                           <TextInfo>
-                            <ViewText>
+                            <ViewText
+                              onClick={() => {
+                                if (!urlProfile) {
+                                  return;
+                                }
+                                getFollowers();
+                              }}
+                            >
                               <TextBold>{following}</TextBold> Seguindo
                             </ViewText>
-                            <ViewText>
-                              <TextBold>{followers}</TextBold>{" "}
+                            <ViewText
+                              onClick={() => {
+                                if (!urlProfile) {
+                                  return;
+                                }
+                                getUserFollowing();
+                              }}
+                            >
+                              <TextBold>{followers}</TextBold>
                               {followers === 1 ? "Seguidor" : "Seguidores"}
                             </ViewText>
                             <ViewText>
-                              <TextBold>{comments}</TextBold>{" "}
+                              <TextBold>{comments}</TextBold>
                               {comments === 1 ? "Comentário" : "Comentários"}
                             </ViewText>
                           </TextInfo>
@@ -326,6 +408,22 @@ export default function ProfilePage() {
               )}
             </>
           )}
+          <ModalFollow
+            show={showFollowing}
+            setShow={setShowFollowing}
+            tittle="Seguindo"
+            loadingInfo={loadingInfo}
+            data={listFollowing}
+            isFollowers={false}
+          />
+          <ModalFollow
+            show={showFollowers}
+            setShow={setShowFollowers}
+            tittle="Seguidores"
+            loadingInfo={loadingInfo}
+            data={listFollowers}
+            isFollowers={true}
+          />
         </ViewTop>
       </Container>
     </>

@@ -34,6 +34,7 @@ export const ImageProfile = styled.img`
 export const Text = styled.h1`
   font-size: 50px;
   font-weight: bold;
+  margin-bottom: 10px;
   @media (max-width: 700px) {
     font-size: 15px;
   }
@@ -120,6 +121,7 @@ export const TextInfo = styled.div`
 export const ViewText = styled.div`
   display: flex;
   margin-bottom: 5px;
+  cursor: pointer;
 `;
 
 export const TextBold = styled.p`

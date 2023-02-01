@@ -256,6 +256,22 @@ async function getInfos(userid) {
   return response;
 }
 
+async function getFollowersUser(userid) {
+  const response = await axios.get(
+    `${BASE_URL}/user/follow/list?userid=${userid}`
+  );
+
+  return response;
+}
+
+async function getFollowersOfUser(userid) {
+  const response = await axios.get(
+    `${BASE_URL}/user/followed?userid=${userid}`
+  );
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -276,4 +292,6 @@ export {
   follow,
   unfollow,
   getInfos,
+  getFollowersUser,
+  getFollowersOfUser,
 };
