@@ -380,9 +380,9 @@ export default function ProfilePage() {
                             </ViewText>
                             <ViewText
                               onClick={() => {
-                                window.scrollTo({
-                                  bottom: 0,
-                                  left: 0,
+                                window.scroll({
+                                  top: 100000,
+                                  left: 100,
                                   behavior: "smooth",
                                 });
                               }}
