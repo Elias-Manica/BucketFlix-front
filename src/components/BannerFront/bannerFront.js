@@ -61,6 +61,7 @@ export default function BannerFront({ data }) {
                   if (!urlProfile) {
                     navigate("/login");
                   }
+                  navigate(`/movie/${data.id}`);
                 }}
               >
                 Adicionar comentário

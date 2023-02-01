@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Input = styled.input`
-  width: 100%;
+  width: ${(props) => (props.isMobile ? "90%" : "100%")};
   height: 40px;
   background: #343334;
   border-radius: 4px;
@@ -10,8 +10,14 @@ export const Input = styled.input`
 `;
 
 export const ContainerInput = styled.div`
-  width: 250px;
+  width: ${(props) => (props.isMobile ? "100%" : "250px")};
   margin-right: 10px;
+  margin-top: ${(props) => (props.isMobile ? 20 : 0)}px;
+  @media (max-width: 700px) {
+    display: flex;
+    justify-content: center;
+    margin-right: 0;
+  }
 `;
 
 export const ContainerMovie = styled.div`

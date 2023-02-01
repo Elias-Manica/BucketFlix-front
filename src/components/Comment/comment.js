@@ -42,8 +42,8 @@ export default function CommentStyle({
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
         confirmButtonText: "Sim, quero deletar!",
-      })
-        .then(async () => {
+      }).then(async (result) => {
+        if (result.isConfirmed) {
           const response = await removeComment(urlProfile.token, commentid);
           if (response.data.msg) {
             Swal.fire({
@@ -64,10 +64,8 @@ export default function CommentStyle({
             timer: 1500,
           });
           getComment();
-        })
-        .catch(() => {
-          return;
-        });
+        }
+      });
     } catch (error) {
       if (error.response.data.msg) {
         Swal.fire({
@@ -214,7 +212,7 @@ export default function CommentStyle({
           )}
         </ViewStar>
         <TextComment>{comment}</TextComment>
-        <TextDate>{new Date(date).toLocaleString("pt-BR")}</TextDate>
+        <TextDate>{new Date(date).toUTCString("pt-BR")}</TextDate>
         {Number(urlProfile.userid) === userid && (
           <DeleteIcon onClick={remove}>
             <IoIosClose />

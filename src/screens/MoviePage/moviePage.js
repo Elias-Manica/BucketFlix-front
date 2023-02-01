@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 
 import { useParams } from "react-router-dom";
 
@@ -30,7 +30,7 @@ export default function MoviePage() {
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
-  async function getData() {
+  const getData = useCallback(async () => {
     try {
       const response = await getMovieSpecific(id);
 
@@ -42,9 +42,9 @@ export default function MoviePage() {
         text: "Erro ao carregar dados!",
       });
     }
-  }
+  }, [id]);
 
-  async function getComment() {
+  const getComment = useCallback(async () => {
     setLoading(true);
     try {
       const response = await getCommentsMovie(urlProfile.token, id);
@@ -71,12 +71,12 @@ export default function MoviePage() {
       });
     }
     setLoading(false);
-  }
+  }, [id, urlProfile.token]);
 
   useEffect(() => {
     getData();
     getComment();
-  }, [id]);
+  }, [id, getData, getComment]);
 
   return (
     <>

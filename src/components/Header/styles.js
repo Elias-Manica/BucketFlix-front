@@ -64,11 +64,12 @@ export const ContainerFirst = styled.div`
 export const ViewIcon = styled.div`
   font-size: 25px;
   margin-right: 3px;
+  cursor: pointer;
 `;
 
 export const ViewIconDisable = styled.div`
   cursor: pointer;
-  color: #000;
+  color: #b7b7b7;
   font-size: 25px;
   margin-right: 3px;
 `;
@@ -126,3 +127,14 @@ export const ButtonSignIn = styled.div`
 `;
 
 export const ContainerSearch = styled.div``;
+
+export const IconMobile = styled.div`
+  display: none;
+  @media (max-width: 700px) {
+    display: initial;
+    position: absolute;
+    right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+  }
+`;

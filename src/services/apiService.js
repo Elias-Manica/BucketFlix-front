@@ -145,6 +145,141 @@ async function getUser(name) {
   return response;
 }
 
+async function movieIsWatched(token, movieid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(
+    `${BASE_URL}/add-movie/watched?movieid=${movieid}`,
+    config
+  );
+
+  return response;
+}
+
+async function addwatchmovie(token, movieid, rating) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const body = {
+    movieid: Number(movieid),
+    rating: rating,
+  };
+
+  const response = await axios.post(
+    `${BASE_URL}/add-movie/watched?movieid=${movieid}`,
+    body,
+    config
+  );
+
+  return response;
+}
+
+async function removewatchmovie(token, movieid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(
+    `${BASE_URL}/add-movie/watched?movieid=${movieid}`,
+    config
+  );
+
+  return response;
+}
+
+async function getwatchmovie(userid) {
+  const response = await axios.get(
+    `${BASE_URL}/add-movie/watched/list?userid=${userid}`
+  );
+
+  return response;
+}
+
+async function userIsFollow(token, userid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(
+    `${BASE_URL}/user/follow?userid=${userid}`,
+    config
+  );
+
+  return response;
+}
+
+async function follow(token, userid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(
+    `${BASE_URL}/user/follow?userid=${userid}`,
+    {},
+    config
+  );
+
+  return response;
+}
+
+async function unfollow(token, userid) {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(
+    `${BASE_URL}/user/follow?userid=${userid}`,
+    config
+  );
+
+  return response;
+}
+
+async function getInfos(userid) {
+  const response = await axios.get(`${BASE_URL}/user/infos?userid=${userid}`);
+
+  return response;
+}
+
+async function getFollowersUser(userid) {
+  const response = await axios.get(
+    `${BASE_URL}/user/follow/list?userid=${userid}`
+  );
+
+  return response;
+}
+
+async function getFollowersOfUser(userid) {
+  const response = await axios.get(
+    `${BASE_URL}/user/followed?userid=${userid}`
+  );
+
+  return response;
+}
+
+async function getCommentsOfUser(userid) {
+  const response = await axios.get(
+    `${BASE_URL}/comments/users?userid=${userid}`
+  );
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -157,4 +292,15 @@ export {
   postCommentsMovie,
   removeComment,
   getUser,
+  movieIsWatched,
+  addwatchmovie,
+  removewatchmovie,
+  getwatchmovie,
+  userIsFollow,
+  follow,
+  unfollow,
+  getInfos,
+  getFollowersUser,
+  getFollowersOfUser,
+  getCommentsOfUser,
 };

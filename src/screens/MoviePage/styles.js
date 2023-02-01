@@ -8,7 +8,7 @@ export const View = styled.div`
   display: flex;
   padding-bottom: 50px;
 
-  @media (max-width: 614px) {
+  @media (max-width: 700px) {
     display: initial;
   }
 `;
@@ -17,6 +17,9 @@ export const ContainerComment = styled.div`
   width: 50%;
   padding-left: 30px;
   padding-top: 30px;
+  @media (max-width: 700px) {
+    width: 100%;
+  }
 `;
 
 export const ContainerInfos = styled.div`
@@ -26,6 +29,9 @@ export const ContainerInfos = styled.div`
   justify-content: center;
   margin-left: 50px;
   flex-direction: column;
+  @media (max-width: 700px) {
+    display: none;
+  }
 `;
 
 export const InputComment = styled.input`

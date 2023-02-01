@@ -14,6 +14,9 @@ export const TopProfile = styled.div`
   align-items: center;
   width: 100%;
   justify-content: space-around;
+  @media (max-width: 700px) {
+    display: initial;
+  }
 `;
 
 export const FirstContainer = styled.div`
@@ -23,15 +26,18 @@ export const FirstContainer = styled.div`
 
 export const ImageProfile = styled.img`
   height: 150px;
-  @media (max-width: 614px) {
-    height: 100px;
+  @media (max-width: 700px) {
+    height: 60px;
   }
 `;
 
 export const Text = styled.h1`
   font-size: 50px;
   font-weight: bold;
-  margin-left: 30px;
+  margin-bottom: 10px;
+  @media (max-width: 700px) {
+    font-size: 15px;
+  }
 `;
 
 export const ButtonComment = styled.div`
@@ -48,14 +54,16 @@ export const ButtonComment = styled.div`
   :hover {
     opacity: 0.7;
   }
-  @media (max-width: 614px) {
-    display: none;
+  @media (max-width: 700px) {
+    padding: 10px 20px;
+    width: 50%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
   }
 `;
 
 export const ContainerMovie = styled.div`
-  display: flex;
-  flex-wrap: wrap;
   margin: 30px 0px;
 `;
 
@@ -70,7 +78,7 @@ export const ImageMovie = styled.img`
     transform: scale(1);
     cursor: pointer;
   }
-  @media (max-width: 614px) {
+  @media (max-width: 700px) {
     height: 100px;
   }
 `;
@@ -86,4 +94,37 @@ export const ContainerEmpty = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  margin-bottom: 20px;
+`;
+
+export const ContainerInfos = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+`;
+
+export const TextInfo = styled.div`
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 700px) {
+    font-size: 12px;
+  }
+`;
+
+export const ViewText = styled.div`
+  display: flex;
+  margin-bottom: 5px;
+  cursor: pointer;
+`;
+
+export const TextBold = styled.p`
+  font-weight: bold;
+  margin-right: 5px;
 `;

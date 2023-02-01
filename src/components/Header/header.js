@@ -7,6 +7,7 @@ import {
   ContainerFirst,
   ContainerSelect,
   ContainerUser,
+  IconMobile,
   ImageUser,
   Logo,
   Menu,
@@ -18,17 +19,20 @@ import {
 import { AiOutlineCaretDown, AiOutlineCaretUp } from "react-icons/ai";
 
 import { BiCameraMovie, BiUserCircle } from "react-icons/bi";
+import { AiOutlineMenu } from "react-icons/ai";
 
 import { logout } from "../../services/apiService";
 
 import Swal from "sweetalert2";
 import SearchUser from "../SearchUser/searchUser";
+import LateralMenu from "../LateralMenu/lateralMenu";
 
 export default function Header() {
   const [showModal, setShowModal] = useState(false);
   const [selectUser, setSelectUser] = useState(false);
   const [name, setName] = useState("");
   const [nameUser, setNameUser] = useState("");
+  const [showMenu, setShowMenu] = useState(false);
 
   const navigate = useNavigate();
 
@@ -66,6 +70,21 @@ export default function Header() {
       <Container>
         <ContainerFirst>
           <Logo onClick={() => navigate("/")}>BUCKETFLIX</Logo>
+          <IconMobile onClick={() => setShowMenu(!showMenu)}>
+            <AiOutlineMenu />
+          </IconMobile>
+          {showMenu && (
+            <LateralMenu
+              setShowMenu={setShowMenu}
+              selectUser={selectUser}
+              name={name}
+              setName={setName}
+              nameUser={nameUser}
+              setNameUser={setNameUser}
+              setSelectUser={setSelectUser}
+              logOutFunction={logOutFunction}
+            />
+          )}
           <ContainerSelect>
             <TextPages onClick={() => navigate("/")}>Página inicial</TextPages>
             <TextPages
@@ -77,7 +96,7 @@ export default function Header() {
                 navigate("/login");
               }}
             >
-              Minha lista
+              Meu perfil
             </TextPages>
             {!urlProfile && (
               <TextPages onClick={() => navigate("/login")}>

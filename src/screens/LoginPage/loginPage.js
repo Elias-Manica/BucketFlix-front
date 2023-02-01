@@ -53,9 +53,7 @@ export default function LoginPage() {
         })
       );
       navigate("/");
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   return (
