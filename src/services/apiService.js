@@ -272,6 +272,14 @@ async function getFollowersOfUser(userid) {
   return response;
 }
 
+async function getCommentsOfUser(userid) {
+  const response = await axios.get(
+    `${BASE_URL}/comments/users?userid=${userid}`
+  );
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -294,4 +302,5 @@ export {
   getInfos,
   getFollowersUser,
   getFollowersOfUser,
+  getCommentsOfUser,
 };

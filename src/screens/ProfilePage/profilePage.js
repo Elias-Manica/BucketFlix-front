@@ -23,6 +23,7 @@ import {
 
 import {
   follow,
+  getCommentsOfUser,
   getFollowersOfUser,
   getFollowersUser,
   getInfos,
@@ -35,6 +36,7 @@ import {
 import Swal from "sweetalert2";
 import ScrollMyMovies from "../../components/ScrollMyMovies/scrollMyMovies";
 import ModalFollow from "../../components/ModalFollow/modalFollow";
+import CommentMovie from "../../components/CommentMovie/commentMovie";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -44,6 +46,7 @@ export default function ProfilePage() {
   const [exist, setExist] = useState(false);
   const [movieLiked, setMovieLiked] = useState([]);
   const [watchMovies, setWatchMovies] = useState([]);
+  const [listComment, setListComment] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
   const [following, setFollowing] = useState(0);
   const [followers, setFollowers] = useState(0);
@@ -176,6 +179,32 @@ export default function ProfilePage() {
     }
   }, [id]);
 
+  const getComment = useCallback(async () => {
+    try {
+      const response = await getCommentsOfUser(id);
+      console.log(response.data);
+      setListComment(response.data);
+    } catch (error) {
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }, [id]);
+
   const getInfosUser = useCallback(async () => {
     try {
       const response = await getInfos(id);
@@ -267,8 +296,9 @@ export default function ProfilePage() {
   useEffect(() => {
     getData();
     getWatch();
+    getComment();
     getInfosUser();
-  }, [id, getData, getWatch, getInfosUser]);
+  }, [id, getData, getWatch, getInfosUser, getComment]);
 
   return (
     <>
@@ -309,7 +339,15 @@ export default function ProfilePage() {
                               <TextBold>{followers}</TextBold>
                               {followers === 1 ? "Seguidor" : "Seguidores"}
                             </ViewText>
-                            <ViewText>
+                            <ViewText
+                              onClick={() => {
+                                window.scroll({
+                                  top: 100000,
+                                  left: 100,
+                                  behavior: "smooth",
+                                });
+                              }}
+                            >
                               <TextBold>{comments}</TextBold>
                               {comments === 1 ? "Comentário" : "Comentários"}
                             </ViewText>
@@ -319,14 +357,36 @@ export default function ProfilePage() {
                         <ContainerInfos>
                           <Text>{name}</Text>
                           <TextInfo>
-                            <ViewText>
+                            <ViewText
+                              onClick={() => {
+                                if (!urlProfile) {
+                                  return;
+                                }
+                                getFollowers();
+                              }}
+                            >
                               <TextBold>{following}</TextBold> Seguindo
                             </ViewText>
-                            <ViewText>
+                            <ViewText
+                              onClick={() => {
+                                if (!urlProfile) {
+                                  return;
+                                }
+                                getUserFollowing();
+                              }}
+                            >
                               <TextBold>{followers}</TextBold>{" "}
                               {followers === 1 ? "Seguidor" : "Seguidores"}
                             </ViewText>
-                            <ViewText>
+                            <ViewText
+                              onClick={() => {
+                                window.scrollTo({
+                                  bottom: 0,
+                                  left: 0,
+                                  behavior: "smooth",
+                                });
+                              }}
+                            >
                               <TextBold>{comments}</TextBold>{" "}
                               {comments === 1 ? "Comentário" : "Comentários"}
                             </ViewText>
@@ -341,10 +401,6 @@ export default function ProfilePage() {
                     ) : isFollowing ? (
                       <ButtonComment
                         onClick={() => {
-                          if (!urlProfile) {
-                            navigate("/");
-                            return;
-                          }
                           unfollowUser();
                         }}
                       >
@@ -353,10 +409,6 @@ export default function ProfilePage() {
                     ) : (
                       <ButtonComment
                         onClick={() => {
-                          if (!urlProfile) {
-                            navigate("/");
-                            return;
-                          }
                           followUser();
                         }}
                       >
@@ -404,6 +456,14 @@ export default function ProfilePage() {
                     )}
                   </ContainerMovie>
                   <Line></Line>
+                  {listComment.length > 0 && (
+                    <>
+                      <CommentMovie
+                        tittle="Comentários recentes"
+                        list={listComment}
+                      />
+                    </>
+                  )}
                 </>
               )}
             </>
