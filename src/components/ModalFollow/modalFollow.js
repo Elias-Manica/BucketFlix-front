@@ -7,6 +7,7 @@ import {
   Container,
   ContainerDisableBottom,
   ContainerMovie,
+  Icon,
   ImageMovie,
   Infos,
   Line,
@@ -17,6 +18,8 @@ import {
   ViewLoad,
 } from "./styles";
 
+import { AiOutlineClose } from "react-icons/ai";
+
 export default function ModalFollow({
   show,
   tittle,
@@ -26,13 +29,16 @@ export default function ModalFollow({
   isFollowers,
 }) {
   const navigate = useNavigate();
-  console.log(data, " data");
+
   return (
     <>
       <Container show={show}>
         <View>
           <Tittle>{tittle}</Tittle>
         </View>
+        <Icon onClick={() => setShow(false)}>
+          <AiOutlineClose />
+        </Icon>
         <Line />
         <ViewFollow>
           {loadingInfo ? (
@@ -41,12 +47,13 @@ export default function ModalFollow({
             </ViewLoad>
           ) : data.length > 0 ? (
             isFollowers ? (
-              data.map((value) => (
+              data.map((value, index) => (
                 <ContainerMovie
                   onClick={() => {
                     navigate(`/user/${value.users.id}`);
                     setShow(false);
                   }}
+                  key={index}
                 >
                   <Infos>
                     <ImageMovie src={value.users.pictureUrl} />
@@ -63,12 +70,13 @@ export default function ModalFollow({
                 </ContainerMovie>
               ))
             ) : (
-              data.map((value) => (
+              data.map((value, index) => (
                 <ContainerMovie
                   onClick={() => {
                     navigate(`/user/${value.usersFollow.id}`);
                     setShow(false);
                   }}
+                  key={index}
                 >
                   <Infos>
                     <ImageMovie src={value.usersFollow.pictureUrl} />

@@ -10,6 +10,10 @@ export const Container = styled.div`
   z-index: 3;
   border-radius: 50px;
   display: ${(props) => (props.show ? "initial" : "none")};
+  @media (max-width: 700px) {
+    width: 80%;
+    left: 10%;
+  }
 `;
 
 export const ContainerDisableBottom = styled.div`
@@ -45,6 +49,8 @@ export const Tittle = styled.h1`
 
 export const ViewFollow = styled.div`
   margin-top: 20px;
+  overflow-y: scroll;
+  max-height: 40vh;
 `;
 
 export const ContainerMovie = styled.div`
@@ -96,4 +102,12 @@ export const ViewLoad = styled.div`
   width: 100%;
   display: flex;
   justify-content: center;
+`;
+
+export const Icon = styled.div`
+  cursor: pointer;
+  font-size: 16px;
+  position: absolute;
+  top: 25px;
+  right: 40px;
 `;
