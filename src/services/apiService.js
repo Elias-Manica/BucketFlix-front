@@ -250,6 +250,12 @@ async function unfollow(token, userid) {
   return response;
 }
 
+async function getInfos(userid) {
+  const response = await axios.get(`${BASE_URL}/user/infos?userid=${userid}`);
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -269,4 +275,5 @@ export {
   userIsFollow,
   follow,
   unfollow,
+  getInfos,
 };

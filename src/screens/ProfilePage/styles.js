@@ -34,7 +34,6 @@ export const ImageProfile = styled.img`
 export const Text = styled.h1`
   font-size: 50px;
   font-weight: bold;
-  margin-left: 30px;
   @media (max-width: 700px) {
     font-size: 15px;
   }
@@ -94,4 +93,36 @@ export const ContainerEmpty = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 20px;
+`;
+
+export const Line = styled.div`
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  margin-bottom: 20px;
+`;
+
+export const ContainerInfos = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left: 30px;
+`;
+
+export const TextInfo = styled.div`
+  font-size: 16px;
+  display: flex;
+  flex-direction: column;
+  @media (max-width: 700px) {
+    font-size: 12px;
+  }
+`;
+
+export const ViewText = styled.div`
+  display: flex;
+  margin-bottom: 5px;
+`;
+
+export const TextBold = styled.p`
+  font-weight: bold;
+  margin-right: 5px;
 `;

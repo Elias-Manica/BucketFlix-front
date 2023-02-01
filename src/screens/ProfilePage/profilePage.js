@@ -7,17 +7,23 @@ import {
   ButtonComment,
   Container,
   ContainerEmpty,
+  ContainerInfos,
   ContainerMovie,
   FirstContainer,
   ImageProfile,
+  Line,
   Text,
+  TextBold,
   TextEmpty,
+  TextInfo,
   TopProfile,
+  ViewText,
   ViewTop,
 } from "./styles";
 
 import {
   follow,
+  getInfos,
   getUserPlaylist,
   getwatchmovie,
   unfollow,
@@ -36,6 +42,9 @@ export default function ProfilePage() {
   const [movieLiked, setMovieLiked] = useState([]);
   const [watchMovies, setWatchMovies] = useState([]);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [following, setFollowing] = useState(0);
+  const [followers, setFollowers] = useState(0);
+  const [comments, setComments] = useState(0);
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
@@ -159,10 +168,39 @@ export default function ProfilePage() {
     }
   }, [id]);
 
+  const getInfosUser = useCallback(async () => {
+    try {
+      const response = await getInfos(id);
+
+      setFollowing(response.data.following);
+      setFollowers(response.data.followers);
+      setComments(response.data.comments);
+    } catch (error) {
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }, [id]);
+
   useEffect(() => {
     getData();
     getWatch();
-  }, [id, getData, getWatch]);
+    getInfosUser();
+  }, [id, getData, getWatch, getInfosUser]);
 
   return (
     <>
@@ -179,9 +217,39 @@ export default function ProfilePage() {
                     <FirstContainer>
                       <ImageProfile src={urlImg} />
                       {Number(urlProfile.userid) === Number(id) ? (
-                        <Text>Meu perfil</Text>
+                        <ContainerInfos>
+                          <Text>Meu perfil</Text>
+                          <TextInfo>
+                            <ViewText>
+                              <TextBold>{following}</TextBold> Seguindo
+                            </ViewText>
+                            <ViewText>
+                              <TextBold>{followers}</TextBold>{" "}
+                              {followers === 1 ? "Seguidor" : "Seguidores"}
+                            </ViewText>
+                            <ViewText>
+                              <TextBold>{comments}</TextBold>{" "}
+                              {comments === 1 ? "Comentário" : "Comentários"}
+                            </ViewText>
+                          </TextInfo>
+                        </ContainerInfos>
                       ) : (
-                        <Text>{name}</Text>
+                        <ContainerInfos>
+                          <Text>{name}</Text>
+                          <TextInfo>
+                            <ViewText>
+                              <TextBold>{following}</TextBold> Seguindo
+                            </ViewText>
+                            <ViewText>
+                              <TextBold>{followers}</TextBold>{" "}
+                              {followers === 1 ? "Seguidor" : "Seguidores"}
+                            </ViewText>
+                            <ViewText>
+                              <TextBold>{comments}</TextBold>{" "}
+                              {comments === 1 ? "Comentário" : "Comentários"}
+                            </ViewText>
+                          </TextInfo>
+                        </ContainerInfos>
                       )}
                     </FirstContainer>
                     {Number(urlProfile.userid) === Number(id) ? (
@@ -231,11 +299,13 @@ export default function ProfilePage() {
                       </ContainerEmpty>
                     )}
                     {watchMovies.length > 0 ? (
-                      <ScrollMyMovies
-                        tittle="Assistidos recentemente"
-                        list={watchMovies}
-                        isWatch={true}
-                      />
+                      <>
+                        <ScrollMyMovies
+                          tittle="Assistidos recentemente"
+                          list={watchMovies}
+                          isWatch={true}
+                        />
+                      </>
                     ) : (
                       <ContainerEmpty>
                         {Number(urlProfile.userid) === Number(id) ? (
@@ -251,6 +321,7 @@ export default function ProfilePage() {
                       </ContainerEmpty>
                     )}
                   </ContainerMovie>
+                  <Line></Line>
                 </>
               )}
             </>
