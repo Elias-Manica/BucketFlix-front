@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-bottom: 30px;
   padding-left: 30px;
-
+  position: relative;
   &:hover {
     opacity: 1;
   }
@@ -135,4 +135,16 @@ export const TextDate = styled.h1`
   position: absolute;
   right: 0px;
   bottom: 0px;
+`;
+
+export const TextSeeMoreTop = styled.h1`
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  cursor: pointer;
+  @media (max-width: 700px) {
+    font-size: 13px;
+  }
 `;

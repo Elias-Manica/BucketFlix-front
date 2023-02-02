@@ -25,6 +25,14 @@ async function getUserPlaylist(userid) {
   return response;
 }
 
+async function getUserPlaylistPagination(userid, page) {
+  const response = await axios.get(
+    `${BASE_URL}/user/movies?userid=${userid}&page=${page}`
+  );
+
+  return response;
+}
+
 async function addMovieInDB(token, movieid) {
   const config = {
     headers: {
@@ -204,6 +212,14 @@ async function getwatchmovie(userid) {
   return response;
 }
 
+async function getwatchmoviePagination(userid, page) {
+  const response = await axios.get(
+    `${BASE_URL}/add-movie/watched/list?userid=${userid}&page=${page}`
+  );
+
+  return response;
+}
+
 async function userIsFollow(token, userid) {
   const config = {
     headers: {
@@ -280,6 +296,14 @@ async function getCommentsOfUser(userid) {
   return response;
 }
 
+async function getCommentsOfUserPagination(userid, page) {
+  const response = await axios.get(
+    `${BASE_URL}/comments/users?userid=${userid}&page=${page}`
+  );
+
+  return response;
+}
+
 export {
   login,
   logout,
@@ -303,4 +327,7 @@ export {
   getFollowersUser,
   getFollowersOfUser,
   getCommentsOfUser,
+  getUserPlaylistPagination,
+  getwatchmoviePagination,
+  getCommentsOfUserPagination,
 };

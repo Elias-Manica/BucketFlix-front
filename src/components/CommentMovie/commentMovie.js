@@ -17,6 +17,7 @@ import {
   Star,
   StarFilled,
   TextComment,
+  TextSeeMoreTop,
   Tittle,
   TittleMovie,
   ViewInfos,
@@ -40,12 +41,15 @@ export default function CommentMovie({ tittle, list }) {
   function passToTheRight() {
     let sizeWalk = margin - Math.round(window.innerWidth / 2); //verifico quanto posso andar para o lado (metade da tela do usuário)
     let lengthList = list.length * 300; //largura lista (300 é o tamanho da imagem + padding);
+    if (lengthList + 30 <= Math.round(window.innerWidth)) {
+      return;
+    }
     if (window.innerWidth - lengthList > sizeWalk) {
-      sizeWalk = window.innerWidth - lengthList - 60;
+      sizeWalk = window.innerWidth - lengthList - 130;
     }
     setMargin(sizeWalk);
   }
-  //TODO - QUANDO TENHO POUCOS FILMES A LISTA SE MEXE PRA DIREITA MESMO ASSIM
+
   return (
     <>
       <Container>
@@ -57,6 +61,13 @@ export default function CommentMovie({ tittle, list }) {
         <ViewRight onClick={passToTheRight}>
           <AiOutlineArrowRight />
         </ViewRight>
+        <TextSeeMoreTop
+          onClick={() => {
+            navigate(`/user/movies/comment/${list[0].userid}`);
+          }}
+        >
+          VER TODOS
+        </TextSeeMoreTop>
         <ContainerRow>
           <Row pass={margin} size={list.length * 300}>
             {list.length > 0

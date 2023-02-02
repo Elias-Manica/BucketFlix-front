@@ -89,11 +89,11 @@ export default function Header() {
             <TextPages onClick={() => navigate("/")}>Página inicial</TextPages>
             <TextPages
               onClick={() => {
-                if (urlProfile) {
-                  navigate(`/user/${urlProfile.userid}`);
+                if (!urlProfile) {
+                  navigate("/login");
                   return;
                 }
-                navigate("/login");
+                navigate(`/user/${urlProfile.userid}`);
               }}
             >
               Meu perfil

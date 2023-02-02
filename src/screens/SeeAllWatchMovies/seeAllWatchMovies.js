@@ -1,77 +1,176 @@
-import { useState } from "react";
-
 import { useNavigate } from "react-router-dom";
-
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
-import { IoIosStarOutline, IoIosStar } from "react-icons/io";
 
 import {
   Container,
-  ContainerMovie,
-  ContainerRow,
+  ContainerInfos,
+  FirstContainer,
+  ImageProfile,
+  TopProfile,
+  Text,
+  ViewAllMovies,
+  ContainerEmpty,
+  TextEmpty,
   Image,
-  Row,
+  ContainerMovie,
+  ContainerLoading,
+  TextNotFOund,
+  ViewStar,
   Star,
   StarFilled,
-  TextSeeMore,
-  TextSeeMoreTop,
-  Tittle,
-  ViewLeft,
-  ViewRight,
-  ViewStar,
 } from "./styles";
 
-export default function ScrollMyMovies({ tittle, list, isWatch }) {
-  const [margin, setMargin] = useState(0);
+import Header from "../../components/Header/header";
+import { useParams } from "react-router-dom";
+import {
+  getUserPlaylist,
+  getwatchmoviePagination,
+} from "../../services/apiService";
+import { useCallback, useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { ThreeDots } from "react-loader-spinner";
+import { IoIosStarOutline, IoIosStar } from "react-icons/io";
+
+export default function SeeAllWatchMovies() {
+  const { id } = useParams();
+  const [urlImg, setUrlImg] = useState("");
+  const [name, setName] = useState("");
+  const [watchMovies, setWatchMovies] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(2);
+  const [hasMore, setHasMore] = useState(true);
+
   const navigate = useNavigate();
 
-  function passToTheLeft() {
-    let sizeWalk = margin + Math.round(window.innerWidth / 2); //verifico quanto posso andar para o lado (metade da tela do usuário)
-    if (sizeWalk > 0) {
-      //se já cheguei na esquerda deixo o scroll no inicio (0)
-      sizeWalk = 0;
+  const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
+
+  const getData = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await getUserPlaylist(id);
+
+      setUrlImg(response.data.pictureUrl);
+      setName(response.data.username);
+      setLoading(false);
+    } catch (error) {
+      console.log(error);
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        setLoading(false);
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      setLoading(false);
     }
-    setMargin(sizeWalk);
+  }, [id]);
+
+  const getWatch = useCallback(async () => {
+    try {
+      const response = await getwatchmoviePagination(id, 1);
+
+      setWatchMovies(response.data);
+    } catch (error) {
+      if (error.response.data.msg) {
+        Swal.fire({
+          position: "top-end",
+          icon: "error",
+          title: `${error.response.data.msg}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        return;
+      }
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "Algo de errado aconteceu, tente novamente mais tarde",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  }, [id]);
+
+  async function getMovies() {
+    try {
+      const response = await getwatchmoviePagination(id, page);
+
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   }
 
-  function passToTheRight() {
-    let sizeWalk = margin - Math.round(window.innerWidth / 2); //verifico quanto posso andar para o lado (metade da tela do usuário)
-    let lengthList = list.length * 150; //largura lista (150 é o tamanho da imagem + padding);
+  const fetchData = async () => {
+    const response = await getMovies();
 
-    if (lengthList + 30 <= Math.round(window.innerWidth)) {
-      return;
+    setWatchMovies([...watchMovies, ...response]);
+
+    if (response.length === 0 || response.length < 10) {
+      setHasMore(false);
     }
-    if (window.innerWidth - lengthList > sizeWalk) {
-      sizeWalk = window.innerWidth - lengthList - 200; //-100 é pra esquerda
-    }
-    setMargin(sizeWalk);
-  }
+
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
+    getData();
+    getWatch();
+  }, [id, getData, getWatch]);
 
   return (
     <>
+      <Header />
       <Container>
-        <Tittle>{tittle}</Tittle>
-
-        <ViewLeft onClick={passToTheLeft}>
-          <AiOutlineArrowLeft />
-        </ViewLeft>
-        <ViewRight onClick={passToTheRight}>
-          <AiOutlineArrowRight />
-        </ViewRight>
-        <TextSeeMoreTop
-          onClick={() => {
-            isWatch
-              ? navigate(`/user/movies/watch/${list[0].userid}`)
-              : navigate(`/user/movies/${list[0].userid}`);
-          }}
-        >
-          VER TODOS
-        </TextSeeMoreTop>
-        <ContainerRow>
-          {isWatch ? (
-            <Row pass={margin} size={list.length * 150}>
-              {list.length > 0
-                ? list.map((item, index) => (
+        {urlProfile && (
+          <>
+            <TopProfile>
+              <FirstContainer>
+                <ImageProfile src={urlImg} />
+                {Number(urlProfile.userid) === Number(id) ? (
+                  <ContainerInfos>
+                    <Text>Meus assistidos</Text>
+                  </ContainerInfos>
+                ) : (
+                  <ContainerInfos>
+                    <Text>{name}</Text>
+                  </ContainerInfos>
+                )}
+              </FirstContainer>
+            </TopProfile>
+            <ViewAllMovies>
+              <InfiniteScroll
+                dataLength={watchMovies.length}
+                next={fetchData}
+                hasMore={hasMore}
+                loader={
+                  watchMovies.length === 0 ? null : (
+                    <ContainerLoading>
+                      <ThreeDots color="white" width={40} height={40} />
+                    </ContainerLoading>
+                  )
+                }
+                endMessage={
+                  <TextNotFOund>Sua lista termina aqui :| </TextNotFOund>
+                }
+              >
+                {loading ? (
+                  <ContainerLoading>
+                    <ThreeDots color="white" width={40} height={40} />
+                  </ContainerLoading>
+                ) : watchMovies.length > 0 ? (
+                  watchMovies.map((item, index) => (
                     <ContainerMovie
                       key={index}
                       onClick={() => navigate(`/movie/${item.movieid}`)}
@@ -198,42 +297,23 @@ export default function ScrollMyMovies({ tittle, list, isWatch }) {
                       />
                     </ContainerMovie>
                   ))
-                : null}
-              {list.length >= 10 && (
-                <TextSeeMore
-                  onClick={() =>
-                    navigate(`/user/movies/watch/${list[0].userid}`)
-                  }
-                >
-                  VER MAIS
-                </TextSeeMore>
-              )}
-            </Row>
-          ) : (
-            <Row pass={margin} size={list.length * 150}>
-              {list.length > 0
-                ? list.map((item, index) => (
-                    <ContainerMovie
-                      key={index}
-                      onClick={() => navigate(`/movie/${item.movieid}`)}
-                    >
-                      <Image
-                        src={`https://image.tmdb.org/t/p/w300${item.movies.poster_path}`}
-                        alt={item.movies.original_title}
-                      />
-                    </ContainerMovie>
-                  ))
-                : null}
-              {list.length >= 10 && (
-                <TextSeeMore
-                  onClick={() => navigate(`/user/movies/${list[0].userid}`)}
-                >
-                  VER MAIS
-                </TextSeeMore>
-              )}
-            </Row>
-          )}
-        </ContainerRow>
+                ) : (
+                  <ContainerEmpty>
+                    {Number(urlProfile.userid) === Number(id) ? (
+                      <TextEmpty>
+                        Você não adicionou nenhum filme a sua lista :|{" "}
+                      </TextEmpty>
+                    ) : (
+                      <TextEmpty>
+                        Este usuário não tem nenhum filme na lista :|
+                      </TextEmpty>
+                    )}
+                  </ContainerEmpty>
+                )}
+              </InfiniteScroll>
+            </ViewAllMovies>
+          </>
+        )}
       </Container>
     </>
   );

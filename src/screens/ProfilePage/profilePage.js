@@ -27,8 +27,8 @@ import {
   getFollowersOfUser,
   getFollowersUser,
   getInfos,
-  getUserPlaylist,
-  getwatchmovie,
+  getUserPlaylistPagination,
+  getwatchmoviePagination,
   unfollow,
   userIsFollow,
 } from "../../services/apiService";
@@ -125,7 +125,7 @@ export default function ProfilePage() {
 
   const getData = useCallback(async () => {
     try {
-      const response = await getUserPlaylist(id);
+      const response = await getUserPlaylistPagination(id, 1);
 
       setUrlImg(response.data.pictureUrl);
       setName(response.data.username);
@@ -155,7 +155,7 @@ export default function ProfilePage() {
 
   const getWatch = useCallback(async () => {
     try {
-      const response = await getwatchmovie(id);
+      const response = await getwatchmoviePagination(id, 1);
 
       setWatchMovies(response.data);
     } catch (error) {
@@ -182,7 +182,7 @@ export default function ProfilePage() {
   const getComment = useCallback(async () => {
     try {
       const response = await getCommentsOfUser(id);
-      console.log(response.data);
+
       setListComment(response.data);
     } catch (error) {
       if (error.response.data.msg) {
@@ -380,9 +380,9 @@ export default function ProfilePage() {
                             </ViewText>
                             <ViewText
                               onClick={() => {
-                                window.scrollTo({
-                                  bottom: 0,
-                                  left: 0,
+                                window.scroll({
+                                  top: 100000,
+                                  left: 100,
                                   behavior: "smooth",
                                 });
                               }}

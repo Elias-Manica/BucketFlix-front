@@ -7,7 +7,7 @@ export const View = styled.div`
   width: 100%;
   display: flex;
   padding-bottom: 50px;
-
+  position: relative;
   @media (max-width: 700px) {
     display: initial;
   }
@@ -17,6 +17,7 @@ export const ContainerComment = styled.div`
   width: 50%;
   padding-left: 30px;
   padding-top: 30px;
+  position: relative;
   @media (max-width: 700px) {
     width: 100%;
   }
