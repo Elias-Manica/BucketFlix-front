@@ -26,7 +26,6 @@ import {
 import Header from "../../components/Header/header";
 import { useParams } from "react-router-dom";
 import {
-  getCommentsOfUser,
   getCommentsOfUserPagination,
   getUserPlaylist,
 } from "../../services/apiService";
@@ -58,7 +57,6 @@ export default function SeeAllCommentMovies() {
       setName(response.data.username);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       if (error.response.data.msg) {
         Swal.fire({
           position: "top-end",
@@ -112,9 +110,7 @@ export default function SeeAllCommentMovies() {
       const response = await getCommentsOfUserPagination(id, page);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   const fetchData = async () => {
