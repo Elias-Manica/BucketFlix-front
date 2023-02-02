@@ -32,7 +32,7 @@ export const ImageProfile = styled.img`
 export const ContainerInfos = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 30px;
+  margin-left: 10px;
 `;
 
 export const Text = styled.h1`
@@ -84,7 +84,10 @@ export const ContainerMovie = styled.div`
   width: 150px;
   color: #fff;
   justify-content: center;
-  overflow-y: hidden;
+  border-color: #000;
+  border-width: 2px;
+  border-style: solid;
+  padding: 20px 20px;
 `;
 
 export const Image = styled.img`
@@ -111,7 +114,7 @@ export const TextNotFOund = styled.h1`
   text-align: center;
   font-weight: bold;
   margin-bottom: 50px;
-  margin-top: 50px;
+  margin-top: 30px;
 `;
 
 export const ViewStar = styled.div`
@@ -131,4 +134,33 @@ export const StarFilled = styled.div`
   font-size: 18px;
   margin-left: 5px;
   color: #ffe600;
+`;
+
+export const ViewInfos = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TittleMovie = styled.h1`
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
+  font-weight: bold;
+`;
+
+export const ContainerTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+`;
+
+export const ContainerText = styled.div`
+  margin-left: 5px;
+  margin-top: 10px;
+`;
+
+export const TextComment = styled.p`
+  font-size: 10px;
 `;

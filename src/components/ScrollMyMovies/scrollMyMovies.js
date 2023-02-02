@@ -14,6 +14,7 @@ import {
   Star,
   StarFilled,
   TextSeeMore,
+  TextSeeMoreTop,
   Tittle,
   ViewLeft,
   ViewRight,
@@ -57,6 +58,15 @@ export default function ScrollMyMovies({ tittle, list, isWatch }) {
         <ViewRight onClick={passToTheRight}>
           <AiOutlineArrowRight />
         </ViewRight>
+        <TextSeeMoreTop
+          onClick={() => {
+            isWatch
+              ? navigate(`/user/movies/watch/${list[0].userid}`)
+              : navigate(`/user/movies/${list[0].userid}`);
+          }}
+        >
+          VER TODOS
+        </TextSeeMoreTop>
         <ContainerRow>
           {isWatch ? (
             <Row pass={margin} size={list.length * 150}>
@@ -189,11 +199,15 @@ export default function ScrollMyMovies({ tittle, list, isWatch }) {
                     </ContainerMovie>
                   ))
                 : null}
-              <TextSeeMore
-                onClick={() => navigate(`/user/movies/watch/${list[0].userid}`)}
-              >
-                VER MAIS
-              </TextSeeMore>
+              {list.length >= 10 && (
+                <TextSeeMore
+                  onClick={() =>
+                    navigate(`/user/movies/watch/${list[0].userid}`)
+                  }
+                >
+                  VER MAIS
+                </TextSeeMore>
+              )}
             </Row>
           ) : (
             <Row pass={margin} size={list.length * 150}>
@@ -210,11 +224,13 @@ export default function ScrollMyMovies({ tittle, list, isWatch }) {
                     </ContainerMovie>
                   ))
                 : null}
-              <TextSeeMore
-                onClick={() => navigate(`/user/movies/${list[0].userid}`)}
-              >
-                VER MAIS
-              </TextSeeMore>
+              {list.length >= 10 && (
+                <TextSeeMore
+                  onClick={() => navigate(`/user/movies/${list[0].userid}`)}
+                >
+                  VER MAIS
+                </TextSeeMore>
+              )}
             </Row>
           )}
         </ContainerRow>

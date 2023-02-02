@@ -17,6 +17,7 @@ import {
   Star,
   StarFilled,
   TextComment,
+  TextSeeMoreTop,
   Tittle,
   TittleMovie,
   ViewInfos,
@@ -60,6 +61,13 @@ export default function CommentMovie({ tittle, list }) {
         <ViewRight onClick={passToTheRight}>
           <AiOutlineArrowRight />
         </ViewRight>
+        <TextSeeMoreTop
+          onClick={() => {
+            navigate(`/user/movies/comment/${list[0].userid}`);
+          }}
+        >
+          VER TODOS
+        </TextSeeMoreTop>
         <ContainerRow>
           <Row pass={margin} size={list.length * 300}>
             {list.length > 0

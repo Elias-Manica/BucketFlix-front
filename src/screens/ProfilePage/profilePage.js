@@ -28,7 +28,7 @@ import {
   getFollowersUser,
   getInfos,
   getUserPlaylistPagination,
-  getwatchmovie,
+  getwatchmoviePagination,
   unfollow,
   userIsFollow,
 } from "../../services/apiService";
@@ -155,7 +155,7 @@ export default function ProfilePage() {
 
   const getWatch = useCallback(async () => {
     try {
-      const response = await getwatchmovie(id);
+      const response = await getwatchmoviePagination(id, 1);
 
       setWatchMovies(response.data);
     } catch (error) {
