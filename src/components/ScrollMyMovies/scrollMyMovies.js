@@ -58,15 +58,18 @@ export default function ScrollMyMovies({ tittle, list, isWatch }) {
         <ViewRight onClick={passToTheRight}>
           <AiOutlineArrowRight />
         </ViewRight>
-        <TextSeeMoreTop
-          onClick={() => {
-            isWatch
-              ? navigate(`/user/movies/watch/${list[0].userid}`)
-              : navigate(`/user/movies/${list[0].userid}`);
-          }}
-        >
-          VER TODOS
-        </TextSeeMoreTop>
+        {list.length >= 10 && (
+          <TextSeeMoreTop
+            onClick={() => {
+              isWatch
+                ? navigate(`/user/movies/watch/${list[0].userid}`)
+                : navigate(`/user/movies/${list[0].userid}`);
+            }}
+          >
+            VER TODOS
+          </TextSeeMoreTop>
+        )}
+
         <ContainerRow>
           {isWatch ? (
             <Row pass={margin} size={list.length * 150}>

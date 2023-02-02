@@ -73,9 +73,7 @@ export default function SeeAllMovies() {
       const response = await getUserPlaylistPagination(id, page);
 
       return response.data.listmovies;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   const fetchData = async () => {

@@ -53,7 +53,6 @@ export default function SeeAllWatchMovies() {
       setName(response.data.username);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       if (error.response.data.msg) {
         Swal.fire({
           position: "top-end",
@@ -107,9 +106,7 @@ export default function SeeAllWatchMovies() {
       const response = await getwatchmoviePagination(id, page);
 
       return response.data;
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   }
 
   const fetchData = async () => {

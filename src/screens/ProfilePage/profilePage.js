@@ -102,7 +102,6 @@ export default function ProfilePage() {
       await unfollow(urlProfile.token, id);
       setIsFollowing(false);
     } catch (error) {
-      console.log(error);
       if (error.response.data.msg) {
         Swal.fire({
           position: "top-end",

@@ -168,7 +168,6 @@ export default function ShowMovie({ data, inputRef }) {
       await removewatchmovie(urlProfile.token, data.id);
       setIsWatched(false);
     } catch (error) {
-      console.log(error, " error");
       if (error.response.data.msg) {
         Swal.fire({
           position: "top-end",
