@@ -25,6 +25,14 @@ async function getUserPlaylist(userid) {
   return response;
 }
 
+async function getUserPlaylistPagination(userid, page) {
+  const response = await axios.get(
+    `${BASE_URL}/user/movies?userid=${userid}&page=${page}`
+  );
+
+  return response;
+}
+
 async function addMovieInDB(token, movieid) {
   const config = {
     headers: {
@@ -303,4 +311,5 @@ export {
   getFollowersUser,
   getFollowersOfUser,
   getCommentsOfUser,
+  getUserPlaylistPagination,
 };

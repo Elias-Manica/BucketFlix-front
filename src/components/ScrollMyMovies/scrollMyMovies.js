@@ -13,6 +13,7 @@ import {
   Row,
   Star,
   StarFilled,
+  TextSeeMore,
   Tittle,
   ViewLeft,
   ViewRight,
@@ -40,7 +41,7 @@ export default function ScrollMyMovies({ tittle, list, isWatch }) {
       return;
     }
     if (window.innerWidth - lengthList > sizeWalk) {
-      sizeWalk = window.innerWidth - lengthList - 100; //-100 é pra esquerda
+      sizeWalk = window.innerWidth - lengthList - 200; //-100 é pra esquerda
     }
     setMargin(sizeWalk);
   }
@@ -188,6 +189,11 @@ export default function ScrollMyMovies({ tittle, list, isWatch }) {
                     </ContainerMovie>
                   ))
                 : null}
+              <TextSeeMore
+                onClick={() => navigate(`/user/movies/watch/${list[0].userid}`)}
+              >
+                VER MAIS
+              </TextSeeMore>
             </Row>
           ) : (
             <Row pass={margin} size={list.length * 150}>
@@ -204,6 +210,11 @@ export default function ScrollMyMovies({ tittle, list, isWatch }) {
                     </ContainerMovie>
                   ))
                 : null}
+              <TextSeeMore
+                onClick={() => navigate(`/user/movies/${list[0].userid}`)}
+              >
+                VER MAIS
+              </TextSeeMore>
             </Row>
           )}
         </ContainerRow>

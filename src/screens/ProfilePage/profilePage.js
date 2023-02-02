@@ -27,7 +27,7 @@ import {
   getFollowersOfUser,
   getFollowersUser,
   getInfos,
-  getUserPlaylist,
+  getUserPlaylistPagination,
   getwatchmovie,
   unfollow,
   userIsFollow,
@@ -125,7 +125,7 @@ export default function ProfilePage() {
 
   const getData = useCallback(async () => {
     try {
-      const response = await getUserPlaylist(id);
+      const response = await getUserPlaylistPagination(id, 1);
 
       setUrlImg(response.data.pictureUrl);
       setName(response.data.username);
@@ -182,7 +182,7 @@ export default function ProfilePage() {
   const getComment = useCallback(async () => {
     try {
       const response = await getCommentsOfUser(id);
-      console.log(response.data);
+
       setListComment(response.data);
     } catch (error) {
       if (error.response.data.msg) {

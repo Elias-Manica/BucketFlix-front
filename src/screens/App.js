@@ -12,6 +12,8 @@ import TokenAuth from "../context/tokenContext";
 import NameAuth from "../context/nameContext";
 import ImageAuth from "../context/imageContext";
 import IdAuth from "../context/useridContext";
+import SeeAllMovies from "./SeeAllMovies/seeAllMovies";
+import SeeAllWatchMovies from "./SeeAllWatchMovies/seeAllWatchMovies";
 
 export default function App() {
   const [token, setToken] = useState("");
@@ -31,6 +33,11 @@ export default function App() {
                   <Route path="/" element={<HomeScreen />} />
                   <Route path="/movie/:id" element={<MoviePage />} />
                   <Route path="/user/:id" element={<ProfilePage />} />
+                  <Route path="/user/movies/:id" element={<SeeAllMovies />} />
+                  <Route
+                    path="/user/movies/watch/:id"
+                    element={<SeeAllWatchMovies />}
+                  />
                   <Route path="/login" element={<LoginPage />} />
                 </Routes>
               </BrowserRouter>

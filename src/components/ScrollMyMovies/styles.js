@@ -39,6 +39,7 @@ export const Row = styled.div`
   width: ${(props) => props.size}px;
   margin-left: ${(props) => props.pass}px;
   transition: all ease 0.5s;
+  position: relative;
 `;
 
 export const ContainerMovie = styled.div`
@@ -95,4 +96,13 @@ export const StarFilled = styled.div`
 
   margin-left: 5px;
   color: #ffe600;
+`;
+
+export const TextSeeMore = styled.h1`
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  right: -90px;
+  z-index: 10;
+  cursor: pointer;
 `;
