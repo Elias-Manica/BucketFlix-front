@@ -8,13 +8,16 @@ export const Container = styled.div`
     props.img ? `url(https://image.tmdb.org/t/p/original${props.img})` : null};
 
   @media (max-width: 700px) {
-    display: none;
+    height: 60vh;
   }
 `;
 
 export const Tittle = styled.h1`
   font-size: 60px;
   font-weight: bold;
+  @media (max-width: 700px) {
+    font-size: 40px;
+  }
 `;
 
 export const ViewStyles = styled.div`
@@ -34,7 +37,8 @@ export const ViewStylesHorizontal = styled.div`
   padding-bottom: 110px;
   padding-top: 70px;
   @media (max-width: 700px) {
-    padding-top: 0px;
+    padding-top: 70px;
+    padding-bottom: 0px;
   }
 `;
 
@@ -43,6 +47,9 @@ export const ContainerInfos = styled.div`
   font-weight: bold;
   margin-top: 15px;
   display: flex;
+  @media (max-width: 700px) {
+    font-size: 16px;
+  }
 `;
 
 export const ViewGrade = styled.h2`
@@ -59,6 +66,11 @@ export const ViewDescription = styled.p`
   font-size: 20px;
   color: #999;
   max-width: 40%;
+  @media (max-width: 700px) {
+    font-size: 14px;
+    max-width: 100%;
+    margin-right: 30px;
+  }
 `;
 
 export const ContainerButtons = styled.div`
@@ -66,6 +78,10 @@ export const ContainerButtons = styled.div`
   display: flex;
   font-size: 20px;
   font-weight: bold;
+  @media (max-width: 700px) {
+    display: initial;
+    font-size: 16px;
+  }
 `;
 
 export const Button = styled.div`
@@ -83,6 +99,9 @@ export const Button = styled.div`
   :hover {
     opacity: 0.7;
   }
+  @media (max-width: 700px) {
+    padding: 10px 20px;
+  }
 `;
 
 export const ButtonComment = styled.div`
@@ -98,5 +117,9 @@ export const ButtonComment = styled.div`
   transition: all ease 0.2s;
   :hover {
     opacity: 0.7;
+  }
+
+  @media (max-width: 700px) {
+    padding: 10px 20px;
   }
 `;

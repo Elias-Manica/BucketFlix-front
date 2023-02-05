@@ -49,6 +49,8 @@ export default function ShowMovie({ data, inputRef }) {
   const [loadWat, setLoadWat] = useState(false);
   const [rated, setRated] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [load, setLoad] = useState(true);
+  const [loadList, setLoadList] = useState(true);
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
@@ -197,6 +199,7 @@ export default function ShowMovie({ data, inputRef }) {
     } catch (error) {
       setIsLiked(false);
     }
+    setLoadList(false);
   }
 
   async function movieIsWatch() {
@@ -206,6 +209,7 @@ export default function ShowMovie({ data, inputRef }) {
     } catch (error) {
       setIsWatched(false);
     }
+    setLoad(false);
   }
 
   useEffect(() => {
@@ -246,7 +250,9 @@ export default function ShowMovie({ data, inputRef }) {
             <ViewDescription>{data.overview}</ViewDescription>
             <ContainerButtons>
               <Button onClick={addMovie}>
-                {isLiked > 0 ? (
+                {loadList ? (
+                  <ThreeDots color="black" height={40} width={40} />
+                ) : isLiked > 0 ? (
                   loading ? (
                     <ThreeDots color="black" height={40} width={40} />
                   ) : (
@@ -273,7 +279,9 @@ export default function ShowMovie({ data, inputRef }) {
                   }
                 }}
               >
-                {isWatched ? (
+                {load ? (
+                  <ThreeDots color="black" height={40} width={40} />
+                ) : isWatched ? (
                   loadWat ? (
                     <ThreeDots color="black" height={40} width={40} />
                   ) : (
