@@ -3,11 +3,14 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import Header from "../../components/Header/header";
 
+import loadImage from "../../assets/images/loading.gif";
+
 import {
   ButtonComment,
   Container,
   ContainerEmpty,
   ContainerInfos,
+  COntainerLoading,
   ContainerMovie,
   FirstContainer,
   ImageProfile,
@@ -19,6 +22,7 @@ import {
   TopProfile,
   ViewText,
   ViewTop,
+  Image,
 } from "./styles";
 
 import {
@@ -56,6 +60,7 @@ export default function ProfilePage() {
   const [showFollowers, setShowFollowers] = useState(false);
   const [listFollowers, setListFollowers] = useState([]);
   const [loadingInfo, setLoadingInfo] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
@@ -150,6 +155,7 @@ export default function ProfilePage() {
       });
       setExist(true);
     }
+    console.log("getdata");
   }, [id]);
 
   const getWatch = useCallback(async () => {
@@ -230,6 +236,7 @@ export default function ProfilePage() {
         timer: 1500,
       });
     }
+    setLoading(false);
   }, [id]);
 
   async function getUserFollowing() {
@@ -304,7 +311,11 @@ export default function ProfilePage() {
       <Container>
         <Header />
         <ViewTop>
-          {exist ? (
+          {loading ? (
+            <COntainerLoading>
+              <Image src={loadImage} />
+            </COntainerLoading>
+          ) : exist ? (
             <Text>Nenhum usuário encontrado</Text>
           ) : (
             <>
