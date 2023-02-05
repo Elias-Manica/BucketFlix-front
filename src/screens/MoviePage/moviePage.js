@@ -4,13 +4,17 @@ import { useParams } from "react-router-dom";
 
 import Header from "../../components/Header/header";
 
+import loadImage from "../../assets/images/loading.gif";
+
 import { getMovieSpecific } from "../../services/movieService";
 
 import {
   Container,
   ContainerComment,
   ContainerInfos,
+  COntainerLoading,
   DontLoginText,
+  Image,
   View,
 } from "./styles";
 
@@ -26,11 +30,13 @@ export default function MoviePage() {
   const [data, setData] = useState({});
   const [comment, setComment] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadPage, setLoadPage] = useState(false);
   const inputRef = useRef(null);
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
 
   const getData = useCallback(async () => {
+    setLoadPage(true);
     try {
       const response = await getMovieSpecific(id);
 
@@ -42,6 +48,7 @@ export default function MoviePage() {
         text: "Erro ao carregar dados!",
       });
     }
+    setLoadPage(false);
   }, [id]);
 
   const getComment = useCallback(async () => {
@@ -82,25 +89,35 @@ export default function MoviePage() {
     <>
       <Container>
         <Header />
-        <ShowMovie data={data} inputRef={inputRef} />
-        <View>
-          <ContainerComment>
-            {!urlProfile ? (
-              <DontLoginText>Faça login para ver os comentários</DontLoginText>
-            ) : (
-              <Comments
-                inputRef={inputRef}
-                data={comment}
-                loading={loading}
-                getComment={getComment}
-                movieid={id}
-              />
-            )}
-          </ContainerComment>
-          <ContainerInfos>
-            <InfosContainer data={data} />
-          </ContainerInfos>
-        </View>
+        {loadPage ? (
+          <COntainerLoading>
+            <Image src={loadImage} />
+          </COntainerLoading>
+        ) : (
+          <>
+            <ShowMovie data={data} inputRef={inputRef} />
+            <View>
+              <ContainerComment>
+                {!urlProfile ? (
+                  <DontLoginText>
+                    Faça login para ver os comentários
+                  </DontLoginText>
+                ) : (
+                  <Comments
+                    inputRef={inputRef}
+                    data={comment}
+                    loading={loading}
+                    getComment={getComment}
+                    movieid={id}
+                  />
+                )}
+              </ContainerComment>
+              <ContainerInfos>
+                <InfosContainer data={data} />
+              </ContainerInfos>
+            </View>
+          </>
+        )}
       </Container>
     </>
   );

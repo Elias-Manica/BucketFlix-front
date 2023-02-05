@@ -31,7 +31,15 @@ export default function BannerFront({ data }) {
     <>
       <Container img={data.backdrop_path}>
         <ViewStyles>
-          <ViewStylesHorizontal>
+          <ViewStylesHorizontal
+            isBig={
+              data.overview
+                ? data.overview.length > 550
+                  ? true
+                  : false
+                : false
+            }
+          >
             <Tittle>{data.title}</Tittle>
             <ContainerInfos>
               <ViewGrade>
