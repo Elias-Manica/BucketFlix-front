@@ -23,7 +23,6 @@ export default function HomeScreen() {
   const [loading, setLoading] = useState(false);
 
   async function getBanner() {
-    setLoading(true);
     try {
       const response = await getPopularMovies();
       let randomindex = Math.floor(
@@ -41,10 +40,10 @@ export default function HomeScreen() {
         text: "Erro ao carregar banner!",
       });
     }
-    setLoading(false);
   }
 
   async function getData() {
+    setLoading(true);
     try {
       const response = await getAllData();
 
@@ -56,6 +55,7 @@ export default function HomeScreen() {
         text: "Erro ao buscar filmes!",
       });
     }
+    setLoading(false);
   }
 
   useEffect(() => {
