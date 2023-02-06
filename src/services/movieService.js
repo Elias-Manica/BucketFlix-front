@@ -6,7 +6,7 @@ const LANGUAGE = "language=pt-BR";
 
 async function getTopRated() {
   const response = await axios.get(
-    `${API_BASE}/movie/top_rated?${API_KEY}&${LANGUAGE}`
+    `${API_BASE}/movie/top_rated?${API_KEY}&${LANGUAGE}&sort_by=vote_count.desc`
   );
 
   const body = {
@@ -18,7 +18,7 @@ async function getTopRated() {
 
 async function getPopularMovies() {
   const response = await axios.get(
-    `${API_BASE}/movie/popular?${API_KEY}&${LANGUAGE}`
+    `${API_BASE}/movie/popular?${API_KEY}&${LANGUAGE}&sort_by=vote_count.desc`
   );
 
   const body = {
@@ -30,7 +30,7 @@ async function getPopularMovies() {
 
 async function getActionMovies() {
   const response = await axios.get(
-    `${API_BASE}/discover/movie?with_genres=28&${API_KEY}&${LANGUAGE}`
+    `${API_BASE}/discover/movie?with_genres=28&${API_KEY}&${LANGUAGE}&sort_by=vote_count.desc`
   );
 
   const body = {
@@ -42,7 +42,7 @@ async function getActionMovies() {
 
 async function getComedyMovies() {
   const response = await axios.get(
-    `${API_BASE}/discover/movie?with_genres=35&${API_KEY}&${LANGUAGE}`
+    `${API_BASE}/discover/movie?with_genres=35&${API_KEY}&${LANGUAGE}&sort_by=vote_count.desc`
   );
 
   const body = {
@@ -54,7 +54,7 @@ async function getComedyMovies() {
 
 async function getHorrorMovies() {
   const response = await axios.get(
-    `${API_BASE}/discover/movie?with_genres=27&${API_KEY}&${LANGUAGE}`
+    `${API_BASE}/discover/movie?with_genres=27&${API_KEY}&${LANGUAGE}&sort_by=vote_count.desc`
   );
 
   const body = {
@@ -66,7 +66,7 @@ async function getHorrorMovies() {
 
 async function getRomanceMovies() {
   const response = await axios.get(
-    `${API_BASE}/discover/movie?with_genres=10749&${API_KEY}&${LANGUAGE}`
+    `${API_BASE}/discover/movie?with_genres=10749&${API_KEY}&${LANGUAGE}&include_adult=false&sort_by=vote_count.desc`
   );
 
   const body = {

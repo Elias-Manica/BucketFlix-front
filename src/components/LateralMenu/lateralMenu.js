@@ -12,7 +12,6 @@ import {
   ViewIconDisable,
   ViewIcon,
   ContainerIcon,
-  TextLogout,
 } from "./styles";
 
 import { BiCameraMovie, BiUserCircle } from "react-icons/bi";
@@ -111,7 +110,7 @@ export default function LateralMenu({
               Meu perfil
             </Text>
             {urlProfile && (
-              <TextLogout onClick={logOutFunction}>Logout</TextLogout>
+              <Text onClick={logOutFunction}>Sair da sua conta</Text>
             )}
 
             {!urlProfile && (

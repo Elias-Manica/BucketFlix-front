@@ -7,7 +7,7 @@ export const Container = styled.div`
   position: fixed;
   top: 20%;
   left: 40%;
-  z-index: 3;
+  z-index: 11;
   border-radius: 50px;
   display: ${(props) => (props.show ? "initial" : "none")};
   @media (max-width: 700px) {
@@ -110,4 +110,10 @@ export const Icon = styled.div`
   position: absolute;
   top: 25px;
   right: 40px;
+`;
+
+export const TextEmpty = styled.h1`
+  text-align: center;
+  width: 100%;
+  margin-top: 10px;
 `;

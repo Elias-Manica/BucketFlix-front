@@ -78,11 +78,13 @@ export default function MoviePage() {
       });
     }
     setLoading(false);
-  }, [id, urlProfile.token]);
+  }, [id]);
 
   useEffect(() => {
     getData();
-    getComment();
+    if (urlProfile) {
+      getComment();
+    }
   }, [id, getData, getComment]);
 
   return (
