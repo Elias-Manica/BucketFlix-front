@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   margin-bottom: 30px;
   padding-left: 30px;
-
+  position: relative;
   &:hover {
     opacity: 1;
   }
@@ -34,6 +34,7 @@ export const Row = styled.div`
   width: ${(props) => props.size}px;
   margin-left: ${(props) => props.pass}px;
   transition: all ease 0.5s;
+  position: relative;
 `;
 
 export const ContainerMovie = styled.div`
@@ -69,4 +70,16 @@ export const ViewRight = styled.div`
   align-items: center;
   overflow: hidden;
   cursor: pointer;
+`;
+
+export const TextSeeMore = styled.h1`
+  font-weight: bold;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  cursor: pointer;
+  @media (max-width: 700px) {
+    font-size: 13px;
+  }
 `;

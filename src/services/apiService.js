@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = "http://54.197.64.56/api";
 
 async function login(body) {
   const response = await axios.post(`${BASE_URL}/sign-in`, body);

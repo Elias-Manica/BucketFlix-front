@@ -10,6 +10,7 @@ import {
   ContainerRow,
   Image,
   Row,
+  TextSeeMore,
   Tittle,
   ViewLeft,
   ViewRight,
@@ -47,6 +48,33 @@ export default function ScrollMovies({ tittle, list }) {
         <ViewRight onClick={passToTheRight}>
           <AiOutlineArrowRight />
         </ViewRight>
+        <TextSeeMore
+          onClick={() => {
+            if (tittle === "Romance") {
+              navigate(`/genres/10749`);
+              return;
+            }
+            if (tittle === "Terror") {
+              navigate(`/genres/27`);
+              return;
+            }
+            if (tittle === "Comédia") {
+              navigate(`/genres/35`);
+              return;
+            }
+            if (tittle === "Ação") {
+              navigate(`/genres/28`);
+              return;
+            }
+            if (tittle === "Melhores avaliados") {
+              navigate(`/genres/Melhores-avaliados`);
+              return;
+            }
+            navigate(`/genres/mais-populares`);
+          }}
+        >
+          VER MAIS
+        </TextSeeMore>
         <ContainerRow>
           <Row pass={margin} size={list.results.length * 150}>
             {list.results.length > 0
