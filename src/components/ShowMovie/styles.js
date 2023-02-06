@@ -136,7 +136,7 @@ export const Modal = styled.div`
   display: ${(props) => (props.isVisible ? "initial" : "none")};
   position: absolute;
   bottom: -80px;
-
+  z-index: 3;
   border-radius: 4px;
   color: white;
   @media (max-width: 700px) {

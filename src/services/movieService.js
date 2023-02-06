@@ -16,9 +16,33 @@ async function getTopRated() {
   return [body];
 }
 
+async function getTopRatedPagination(page) {
+  const response = await axios.get(
+    `${API_BASE}/movie/top_rated?${API_KEY}&${LANGUAGE}&sort_by=vote_count.desc&page=${page}`
+  );
+
+  const body = {
+    tittle: "Melhores avaliados",
+    list: response.data,
+  };
+  return [body];
+}
+
 async function getPopularMovies() {
   const response = await axios.get(
     `${API_BASE}/movie/popular?${API_KEY}&${LANGUAGE}&sort_by=vote_count.desc`
+  );
+
+  const body = {
+    tittle: "Mais populares",
+    list: response.data,
+  };
+  return [body];
+}
+
+async function getPopularMoviesPagination(page) {
+  const response = await axios.get(
+    `${API_BASE}/movie/popular?${API_KEY}&${LANGUAGE}&sort_by=vote_count.desc&page=${page}`
   );
 
   const body = {
@@ -76,6 +100,18 @@ async function getRomanceMovies() {
   return [body];
 }
 
+async function getMoviesPagination(id, page) {
+  const response = await axios.get(
+    `${API_BASE}/discover/movie?with_genres=${id}&${API_KEY}&${LANGUAGE}&include_adult=false&sort_by=vote_count.desc&page=${page}`
+  );
+
+  const body = {
+    tittle: "Romance",
+    list: response.data,
+  };
+  return [body];
+}
+
 async function getMovieSpecific(movieid) {
   const response = await axios.get(
     `${API_BASE}/movie/${movieid}?${API_KEY}&${LANGUAGE}`
@@ -122,4 +158,7 @@ export {
   getRomanceMovies,
   getMovieSpecific,
   getMovieByName,
+  getMoviesPagination,
+  getTopRatedPagination,
+  getPopularMoviesPagination,
 };
