@@ -12,6 +12,7 @@ import {
   Infos,
   Line,
   NameMovie,
+  TextEmpty,
   Tittle,
   View,
   ViewFollow,
@@ -93,7 +94,13 @@ export default function ModalFollow({
                 </ContainerMovie>
               ))
             )
-          ) : null}
+          ) : (
+            <TextEmpty>
+              {tittle === "Seguindo"
+                ? "Você não segue ninguém :|"
+                : "Você não tem seguidores :|"}{" "}
+            </TextEmpty>
+          )}
         </ViewFollow>
       </Container>
       <ContainerDisableBottom

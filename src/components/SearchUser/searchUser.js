@@ -96,8 +96,9 @@ export default function SearchUser({
                   <Infos>
                     <ImageMovie
                       src={`https://image.tmdb.org/t/p/original${item.poster_path}`}
+                      alt={item.title}
                     />
-                    <NameMovie>{item.original_title}</NameMovie>
+                    <NameMovie>{item.title}</NameMovie>
                   </Infos>
                   <BiCameraMovie color="#000" />
                 </ContainerMovie>

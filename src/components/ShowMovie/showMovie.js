@@ -217,6 +217,8 @@ export default function ShowMovie({ data, inputRef }) {
       addMovieInDB(urlProfile.token, data.id);
       return;
     }
+    setLoad(false);
+    setLoadList(false);
   }, [urlProfile, data.id]);
 
   return (
@@ -251,15 +253,15 @@ export default function ShowMovie({ data, inputRef }) {
             <ContainerButtons>
               <Button onClick={addMovie}>
                 {loadList ? (
-                  <ThreeDots color="black" height={40} width={40} />
+                  <ThreeDots color="black" height={20} width={20} />
                 ) : isLiked > 0 ? (
                   loading ? (
-                    <ThreeDots color="black" height={40} width={40} />
+                    <ThreeDots color="black" height={20} width={20} />
                   ) : (
                     <p>Remover da minha lista</p>
                   )
                 ) : loading ? (
-                  <ThreeDots color="black" height={40} width={40} />
+                  <ThreeDots color="black" height={20} width={20} />
                 ) : (
                   <p>Adicionar na minha lista</p>
                 )}
@@ -280,10 +282,10 @@ export default function ShowMovie({ data, inputRef }) {
                 }}
               >
                 {load ? (
-                  <ThreeDots color="black" height={40} width={40} />
+                  <ThreeDots color="black" height={20} width={20} />
                 ) : isWatched ? (
                   loadWat ? (
-                    <ThreeDots color="black" height={40} width={40} />
+                    <ThreeDots color="black" height={20} width={20} />
                   ) : (
                     <>
                       <TextButton>Esse você já assistiu</TextButton>
@@ -291,7 +293,7 @@ export default function ShowMovie({ data, inputRef }) {
                     </>
                   )
                 ) : loadWat ? (
-                  <ThreeDots color="black" height={40} width={40} />
+                  <ThreeDots color="black" height={20} width={20} />
                 ) : (
                   <>
                     <TextButton>Já assistiu?</TextButton>
