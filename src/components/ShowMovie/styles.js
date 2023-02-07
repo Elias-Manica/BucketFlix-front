@@ -35,7 +35,7 @@ export const ViewStylesHorizontal = styled.div`
   flex-direction: column;
   padding-left: 30px;
   padding-bottom: 110px;
-  padding-top: 70px;
+  padding-top: ${(props) => (props.isBig ? 0 : 70)}px;
   @media (max-width: 700px) {
     padding-top: ${(props) => (props.isBig ? 0 : 70)}px;
   }
@@ -152,13 +152,13 @@ export const TextModal = styled.p`
 
 export const Star = styled.div`
   font-size: 18px;
-
+  cursor: pointer;
   margin-left: 5px;
 `;
 
 export const StarFilled = styled.div`
   font-size: 18px;
-
+  cursor: pointer;
   margin-left: 5px;
   color: #ffe600;
 `;

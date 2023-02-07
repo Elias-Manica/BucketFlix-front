@@ -20,6 +20,20 @@ export const ContainerComment = styled.div`
   position: relative;
   @media (max-width: 700px) {
     width: 100%;
+    display: none;
+  }
+`;
+
+export const ContainerCommentTwo = styled.div`
+  width: 100%;
+  padding-top: 30px;
+  position: relative;
+  display: none;
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+    padding-left: 10px;
   }
 `;
 
@@ -27,11 +41,9 @@ export const ContainerInfos = styled.div`
   width: 50%;
   padding-top: 20px;
   display: flex;
-  justify-content: center;
-  margin-left: 50px;
   flex-direction: column;
   @media (max-width: 700px) {
-    display: none;
+    width: 100%;
   }
 `;
 

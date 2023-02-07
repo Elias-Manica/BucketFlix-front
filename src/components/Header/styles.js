@@ -7,7 +7,7 @@ export const Container = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 2;
+  z-index: 11;
   padding: 0 30px;
   display: flex;
   align-items: center;

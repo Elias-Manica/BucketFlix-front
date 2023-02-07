@@ -4,6 +4,7 @@ export const Container = styled.div`
   margin-bottom: 30px;
   padding-left: 30px;
   position: relative;
+  margin-top: ${(props) => (props.marginTop ? 20 : 0)}px;
   &:hover {
     opacity: 1;
   }

@@ -220,6 +220,10 @@ export default function ShowMovie({ data, inputRef }) {
     setLoad(false);
     setLoadList(false);
   }, [urlProfile, data.id]);
+  console.log(
+    data.overview ? (data.overview.length > 550 ? true : false) : false,
+    " tamanbo"
+  );
 
   return (
     <>
