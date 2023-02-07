@@ -51,9 +51,13 @@ The following tools and frameworks were used in the construction of the project:
   <img style='margin: 5px;' src='https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white'>
   <img style='margin: 5px;' src='https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white'>
   <img style='margin: 5px;' src='https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white'>
-  <img style='https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white'>
+     <img style='margin: 5px;' src='https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white'>
+   <img style='margin: 5px;' src='https://img.shields.io/badge/firebase-ffca28?style=for-the-badge&logo=firebase&logoColor=black'>
 </p>
 - react-loader-spinner
+- Joi
+- sweetalert2
 
 ## How to run
 
@@ -66,4 +70,5 @@ npm i
 ```bash
 npm start
 ```
-4. Finally access http://localhost:3000 on your browser
+4. Run the backend on port 5000 (click here to know how)
+5. Finally access http://localhost:3000 on your browser
