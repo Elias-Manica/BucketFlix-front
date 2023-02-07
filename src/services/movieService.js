@@ -128,6 +128,14 @@ async function getMovieByName(name) {
   return response;
 }
 
+async function getMovieRecommended(movieid) {
+  const response = await axios.get(
+    `${API_BASE}/movie/${movieid}/recommendations?${API_KEY}&${LANGUAGE}`
+  );
+
+  return response;
+}
+
 async function getAllData() {
   const top = await getTopRated();
   const popular = await getPopularMovies();
@@ -161,4 +169,5 @@ export {
   getMoviesPagination,
   getTopRatedPagination,
   getPopularMoviesPagination,
+  getMovieRecommended,
 };

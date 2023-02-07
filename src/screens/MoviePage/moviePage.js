@@ -6,11 +6,15 @@ import Header from "../../components/Header/header";
 
 import loadImage from "../../assets/images/loading.gif";
 
-import { getMovieSpecific } from "../../services/movieService";
+import {
+  getMovieRecommended,
+  getMovieSpecific,
+} from "../../services/movieService";
 
 import {
   Container,
   ContainerComment,
+  ContainerCommentTwo,
   ContainerInfos,
   COntainerLoading,
   DontLoginText,
@@ -24,6 +28,7 @@ import ShowMovie from "../../components/ShowMovie/showMovie";
 import InfosContainer from "../../components/InfosContainer/infosContainer";
 import Comments from "../../components/Comments/comments";
 import { getCommentsMovie } from "../../services/apiService";
+import ScrollMovies from "../../components/ScroolMovies/scrollMovies";
 
 export default function MoviePage() {
   const { id } = useParams();
@@ -31,6 +36,7 @@ export default function MoviePage() {
   const [comment, setComment] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadPage, setLoadPage] = useState(false);
+  const [listReccomend, setListReccomend] = useState([]);
   const inputRef = useRef(null);
 
   const urlProfile = JSON.parse(localStorage.getItem("bucketflix"));
@@ -41,6 +47,12 @@ export default function MoviePage() {
       const response = await getMovieSpecific(id);
 
       setData(response.data);
+      const reccomended = await getMovieRecommended(id);
+      console.log(
+        { list: reccomended.data, tittle: "Recomendados" },
+        " recommende"
+      );
+      setListReccomend([{ list: reccomended.data, tittle: "Recomendados" }]);
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -116,7 +128,29 @@ export default function MoviePage() {
               </ContainerComment>
               <ContainerInfos>
                 <InfosContainer data={data} />
+                {listReccomend.map((value, index) => (
+                  <ScrollMovies
+                    key={index}
+                    tittle={value.tittle}
+                    list={value.list}
+                  />
+                ))}
               </ContainerInfos>
+              <ContainerCommentTwo>
+                {!urlProfile ? (
+                  <DontLoginText>
+                    Faça login para ver os comentários
+                  </DontLoginText>
+                ) : (
+                  <Comments
+                    inputRef={inputRef}
+                    data={comment}
+                    loading={loading}
+                    getComment={getComment}
+                    movieid={id}
+                  />
+                )}
+              </ContainerCommentTwo>
             </View>
           </>
         )}

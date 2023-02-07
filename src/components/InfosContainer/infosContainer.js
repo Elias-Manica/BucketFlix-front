@@ -1,4 +1,4 @@
-import { Text, TextInfos } from "./styles";
+import { Container, Text, TextInfos } from "./styles";
 
 export default function InfosContainer({ data }) {
   const formatter = new Intl.NumberFormat("en-US", {
@@ -6,7 +6,7 @@ export default function InfosContainer({ data }) {
     currency: "USD",
   });
   return (
-    <>
+    <Container>
       {data.tagline && <Text>{data.tagline}</Text>}
       {data.budget && (
         <TextInfos>Orçamento: {formatter.format(data.budget)}</TextInfos>
@@ -18,6 +18,6 @@ export default function InfosContainer({ data }) {
       {data.popularity && (
         <TextInfos>Nota popular: {data.vote_average.toFixed(1)}</TextInfos>
       )}
-    </>
+    </Container>
   );
 }

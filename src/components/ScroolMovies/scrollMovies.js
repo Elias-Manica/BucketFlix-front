@@ -40,7 +40,7 @@ export default function ScrollMovies({ tittle, list }) {
 
   return (
     <>
-      <Container>
+      <Container marginTop={tittle === "Recomendados" ? true : false}>
         <Tittle>{tittle}</Tittle>
         <ViewLeft onClick={passToTheLeft}>
           <AiOutlineArrowLeft />
@@ -48,33 +48,36 @@ export default function ScrollMovies({ tittle, list }) {
         <ViewRight onClick={passToTheRight}>
           <AiOutlineArrowRight />
         </ViewRight>
-        <TextSeeMore
-          onClick={() => {
-            if (tittle === "Romance") {
-              navigate(`/genres/10749`);
-              return;
-            }
-            if (tittle === "Terror") {
-              navigate(`/genres/27`);
-              return;
-            }
-            if (tittle === "Comédia") {
-              navigate(`/genres/35`);
-              return;
-            }
-            if (tittle === "Ação") {
-              navigate(`/genres/28`);
-              return;
-            }
-            if (tittle === "Melhores avaliados") {
-              navigate(`/genres/Melhores-avaliados`);
-              return;
-            }
-            navigate(`/genres/mais-populares`);
-          }}
-        >
-          VER MAIS
-        </TextSeeMore>
+        {tittle !== "Recomendados" && (
+          <TextSeeMore
+            onClick={() => {
+              if (tittle === "Romance") {
+                navigate(`/genres/10749`);
+                return;
+              }
+              if (tittle === "Terror") {
+                navigate(`/genres/27`);
+                return;
+              }
+              if (tittle === "Comédia") {
+                navigate(`/genres/35`);
+                return;
+              }
+              if (tittle === "Ação") {
+                navigate(`/genres/28`);
+                return;
+              }
+              if (tittle === "Melhores avaliados") {
+                navigate(`/genres/Melhores-avaliados`);
+                return;
+              }
+              navigate(`/genres/mais-populares`);
+            }}
+          >
+            VER MAIS
+          </TextSeeMore>
+        )}
+
         <ContainerRow>
           <Row pass={margin} size={list.results.length * 150}>
             {list.results.length > 0

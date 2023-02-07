@@ -46,7 +46,7 @@ export default function HomeScreen() {
     setLoading(true);
     try {
       const response = await getAllData();
-
+      console.log(response, " repsonse home");
       setData(response);
     } catch (error) {
       Swal.fire({
