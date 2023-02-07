@@ -1,70 +1,69 @@
-# Getting Started with Create React App
+# BucketFlix
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A responsive website that simulates a movie social network.
 
-## Available Scripts
+<center>gif imagem</center>
 
-In the project directory, you can run:
+Try it out now at http://54.197.64.56/
 
-### `npm start`
+## About this Project
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This is a Single-Page Application that simulates a social network. Below are the implemented features:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Login
+- Sign up
+- HomeScreen
+- See what movies people are watching by category
+- Search for a specific movie
+- Search for specific users
+- Add/remove a movie to your bucket list
+- Add/remove a movie to your list of watched movies
+- Review and comment on your favorite movies
+- Follow profile of your friends
+- Share your lists with your friends 
 
-### `npm test`
+## Why?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This project was made to help me decide what I should watch and what my friends are watching. I can manage movies I want to watch and movies I've watched. In addition to everything, make comments on those I hated so that no one has to spend more than 4 hours watching (Justice League-Snyder Cut)
 
-### `npm run build`
+This web site was my project Full Stack doing everything from the ideia, layout, backend, frontend to the deploy in the AWS, using PostgresSQL! 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The Back-end can be found here:
+https://github.com/Elias-Manica/BucketFlix-Back
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+I will be happy if you can give me some feedback on the code, layout or anything you think could have been better in the project.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+I am always available to answer questions
 
-### `npm run eject`
+Send me an email: eliasmanica@poli.ufrj.br
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Connect with me on [LinkedIn](https://www.linkedin.com/in/eliasmanica/).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Technologies
+The following tools and frameworks were used in the construction of the project:<br>
+<p>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=for-the-badge&color=informational'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/Amazon_AWS-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white'>
+  <img style='margin: 5px;' src='https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white'>
+  <img style='https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white'>
+</p>
+- react-loader-spinner
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## How to run
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Clone this repository
+2. Install dependencies
+```bash
+npm i
+```
+3. Run the front-end with
+```bash
+npm start
+```
+4. Finally access http://localhost:3000 on your browser
